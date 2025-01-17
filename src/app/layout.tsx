@@ -14,11 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="h-full min-h-screen flex flex-col">
-        <Header />
-        <main className="flex flex-1 flex-col">{children}</main>
-        <Footer />
+    <html lang="en">
+      <body
+        className="bg-cover bg-center h-full min-h-screen flex items-center justify-center px-2 xl:px-0"
+        style={{ backgroundImage: "url('/images/body_bg.jpg')" }}
+      >
+        <div className="bg-black/20 backdrop-blur-md shadow-lg rounded-xl w-full max-w-[1200px] h-[80vh] lg:h-[75vh] mx-auto my-6 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
+          <Header />
+          <main className="h-[2300px] flex flex-col">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
