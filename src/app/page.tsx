@@ -1,10 +1,21 @@
+import PostCard from '@/components/PostCard';
 import { getAllPosts } from '@/libs/post';
 
 const getAllPostList = async () => getAllPosts();
 
 export default async function Home() {
-  const posts = await getAllPostList();
-  console.log('postsposts  ::  ', posts);
+  const postList: Post[] = await getAllPostList();
 
-  return <section>Main Page</section>;
+  return (
+    <section>
+      Main Page
+      <ul>
+        {postList.map((post) => (
+          <li key={post.slug + post.date}>
+            <PostCard {...post} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
