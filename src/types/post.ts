@@ -1,0 +1,10 @@
+type Post = PostMatter & {
+  content: string;
+};
+type PostMatter = {
+  title: string;
+  description: string;
+  image?: string;
+  tags: string[];
+  date: string;
+};
