@@ -19,9 +19,9 @@ export default function RootLayout({
         className="bg-cover bg-center h-full min-h-screen flex items-center justify-center px-2 xl:px-0"
         style={{ backgroundImage: "url('/images/body_bg.jpg')" }}
       >
-        <div className="bg-black/20 backdrop-blur-md shadow-lg rounded-xl w-full max-w-[1200px] h-[80vh] lg:h-[75vh] mx-auto my-6 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
+        <div className="p-2 bg-black/20 backdrop-blur-md shadow-lg rounded-xl w-full max-w-[1200px] h-[80vh] lg:h-[75vh] mx-auto my-6 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
           <Header />
-          <main className="min-h-[74vh] lg:min-h-[69vh] flex flex-col">{children}</main>
+          <main className="min-h-[67vh] lg:min-h-[62vh] flex flex-col">{children}</main>
           <Footer />
         </div>
       </body>
