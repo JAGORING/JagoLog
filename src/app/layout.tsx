@@ -21,7 +21,7 @@ export default function RootLayout({
       >
         <div className="bg-black/20 backdrop-blur-md shadow-lg rounded-xl w-full max-w-[1200px] h-[80vh] lg:h-[75vh] mx-auto my-6 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
           <Header />
-          <main className="h-[2300px] flex flex-col">{children}</main>
+          <main className="min-h-[74vh] lg:min-h-[69vh] flex flex-col">{children}</main>
           <Footer />
         </div>
       </body>
