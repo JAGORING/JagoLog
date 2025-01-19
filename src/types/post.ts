@@ -1,5 +1,6 @@
 type Post = PostMatter & {
   content: string;
+  slug: string;
 };
 type PostMatter = {
   title: string;
