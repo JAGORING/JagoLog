@@ -11,9 +11,12 @@ const parsePost = (postPath: string): Post | undefined => {
     const { content, data } = matter(file);
     const grayMatter = data as PostMatter;
 
+    const path = postPath.slice(postPath.indexOf(BASE_PATH)).replace(`${BASE_PATH}`, '').replace('.mdx', '');
+    const [category, slug] = path.split('\\');
+
     return {
       ...grayMatter,
-      slug: postPath.slice(postPath.indexOf(BASE_PATH)).replace('.mdx', ''),
+      url: `blog/${category}/${slug}`.replace(' ', '_'),
       tags: grayMatter.tags.filter(Boolean),
       date: dayjs(grayMatter.date).format('YYYY-MM-DD'),
       content,

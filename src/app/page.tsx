@@ -11,7 +11,7 @@ export default async function Home() {
       Main Page
       <ul>
         {postList.map((post) => (
-          <li key={post.slug + post.date}>
+          <li key={post.url + post.date}>
             <PostCard {...post} />
           </li>
         ))}

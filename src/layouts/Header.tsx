@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 export const Header = () => {
   const path = usePathname();
   const menuItems = [
-    { href: '/blog', label: 'blog' },
+    { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
   ];
 
