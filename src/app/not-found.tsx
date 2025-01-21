@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full text-white space-y-6 py-12">
@@ -9,12 +11,12 @@ const NotFound = () => {
         요청하신 페이지가 삭제되었거나 잘못된 경로일 수 있습니다. 올바른 주소인지 다시 한 번 확인해주세요.
       </p>
 
-      <a
+      <Link
         href="/"
         className="px-6 py-3 mt-4 text-sm font-medium text-white transition-all rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm"
       >
         홈으로 돌아가기
-      </a>
+      </Link>
     </div>
   );
 };
