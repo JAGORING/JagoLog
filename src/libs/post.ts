@@ -34,3 +34,9 @@ export const getAllPosts = () => {
     return [...ac, post];
   }, []);
 };
+
+export const getPostDetail = async (category: string, slug: string) => {
+  const filePath = `${POSTS_PATH}/${category}/${slug}.mdx`;
+  const detail = await parsePost(filePath);
+  return detail;
+};

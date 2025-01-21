@@ -1,9 +1,14 @@
+import { getPostDetail } from '@/libs/post';
+
 type Props = {
   params: { category: string; slug: string };
 };
 
-const PostDetail = ({ params }: Props) => {
+const PostDetail = async ({ params }: Props) => {
   const { category, slug } = params;
+  const post = await getPostDetail(category, slug);
+  console.log(post);
+
   return (
     <section>
       <div>
