@@ -1,4 +1,5 @@
 import { getPostDetail } from '@/libs/post';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 type Props = {
   params: { category: string; slug: string };
@@ -16,6 +17,11 @@ const PostDetail = async ({ params }: Props) => {
         <div>category : {category}</div>
         <div>slug : {slug}</div>
       </div>
+      {post && (
+        <div>
+          <MDXRemote source={post.content} />
+        </div>
+      )}
     </section>
   );
 };
