@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9fa;
+  --foreground: #222222;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121212;
+    --foreground: #e0e0e0;
   }
 }
-
 body {
-  color: var(--background);
+  color: var(--background); /* 기존의 오류 수정 (배경색이 아니라 글자색을 적용) */
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--foreground);
 }
 
 @layer utilities {
@@ -25,6 +25,7 @@ body {
   }
 }
 
+/* Scroll */
 .scrollbar-thumb-rounded::-webkit-scrollbar {
   width: 6px;
 }
@@ -35,4 +36,45 @@ body {
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* MDX */
+
+/* === 코드 블록 전체 스타일 === */
+figure[data-rehype-pretty-code-figure] {
+  @apply relative rounded-lg shadow-md bg-[var(--foreground)] p-4;
+}
+
+/* === 코드 블록 내부 스타일 === */
+figure[data-rehype-pretty-code-figure] pre {
+  @apply overflow-x-auto text-xs leading-relaxed bg-transparent;
+}
+
+/* === 코드 블록 - 제목 영역 (파일명 표시) === */
+figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title],
+figure[data-rehype-pretty-code-figure] div[data-rehype-pretty-code-title] {
+  @apply flex items-center bg-[var(--background)] bg-opacity-90 
+         border-b border-[var(--foreground)] px-2 py-1 mb-2 text-sm font-semibold text-[var(--foreground)]
+         rounded-lg;
+}
+
+/* === 코드 블록 내부 코드 스타일 === */
+figure[data-rehype-pretty-code-figure] code {
+  @apply font-mono text-sm bg-transparent;
+}
+
+/* === 다크 모드 스타일 === */
+@media (prefers-color-scheme: dark) {
+  figure[data-rehype-pretty-code-figure] {
+    @apply bg-gray-900 border-gray-700;
+  }
+
+  figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title],
+  figure[data-rehype-pretty-code-figure] div[data-rehype-pretty-code-title] {
+    @apply bg-gray-800 text-gray-200 border-gray-700;
+  }
+
+  figure[data-rehype-pretty-code-figure] code {
+    @apply text-gray-300;
+  }
 }
