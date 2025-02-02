@@ -1,5 +1,6 @@
 import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
+import CustomCodeBlock from '../CustomCodeBlock';
 
 export const mdxComponents: MDXComponents = {
   a: ({ children, ...props }) => {
@@ -8,5 +9,8 @@ export const mdxComponents: MDXComponents = {
         {children}
       </Link>
     );
+  },
+  code: ({ ...props }) => {
+    return <CustomCodeBlock {...props} />;
   },
 };
