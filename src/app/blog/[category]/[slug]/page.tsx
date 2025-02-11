@@ -1,4 +1,5 @@
 import PostContent from '@/components/mdx/PostContent';
+import { PostHeader } from '@/components/mdx/PostHeader';
 import { getPostDetail } from '@/libs/post';
 
 type Props = {
@@ -12,12 +13,7 @@ const PostDetail = async ({ params }: Props) => {
 
   return (
     <section>
-      <div>
-        <div>Post Detail</div>
-        <div>category : {category}</div>
-        <div>slug : {slug}</div>
-      </div>
-
+      {post && <PostHeader post={post} />}
       {post && <PostContent content={post.content} />}
     </section>
   );
