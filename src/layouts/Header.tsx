@@ -14,7 +14,10 @@ export const Header = () => {
     <header className="h-[60px] flex items-center">
       <div className="w-full flex justify-between text-gray-200">
         <div className="flex items-center">
-          <span className="mr-3">@JAGO :</span>
+          <Link href="/" className={`text-white`}>
+            <span className="mr-3">@JAGO :</span>
+          </Link>
+
           <ul className="flex">
             {menuItems.map(({ href, label }, index) => (
               <li key={href} className="relative">
