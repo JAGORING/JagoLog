@@ -6,7 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const PostContent = ({ content }: { content: string }) => {
   return (
-    <div className="px-3 prose prose-lg dark:prose-invert max-w-none">
+    <div className="px-2 prose prose-lg dark:prose-invert max-w-none">
       <MDXRemote
         source={content}
         components={mdxComponents}

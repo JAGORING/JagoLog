@@ -3,7 +3,7 @@ interface Props {
 }
 export const PostHeader = ({ post }: Props) => {
   return (
-    <header className="mb-4 border-b border-gray-300 pb-4 dark:border-gray-700">
+    <header className="mb-4 border-b border-gray-300 py-3 dark:border-gray-700">
       <h1 className="text-3xl font-bold text-gray-50 dark:text-gray-900">
         {post.title} <span className="text-xs text-gray-200 dark:text-gray-400">{post.date}</span>
       </h1>
