@@ -6,8 +6,8 @@ interface ImageProps {
 export const Image = ({ src, alt }: ImageProps) => {
   return (
     <>
-      <img src={src} alt={alt} className="mx-auto mb-0 mt-8 rounded-md" />
-      {alt !== '' && <span className="mb-8 mt-2 block text-center text-sm text-gray-300">{alt}</span>}
+      <img src={src} alt={alt} className="mx-auto mb-0 mt-6 rounded-md" />
+      {alt !== '' && <span className="mb-6 mt-3 block text-center text-sm text-gray-300">{alt}</span>}
     </>
   );
 };
