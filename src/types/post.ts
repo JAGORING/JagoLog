@@ -5,7 +5,7 @@ type Post = PostMatter & {
 type PostMatter = {
   title: string;
   description: string;
-  image?: string;
+  thumbnail?: string;
   tags: string[];
   date: string;
 };
