@@ -4,6 +4,7 @@ import fs from 'fs';
 import dayjs from 'dayjs';
 import matter from 'gray-matter';
 import { sync } from 'glob';
+import path from 'path';
 
 const parsePost = (postPath: string): Post | undefined => {
   try {
@@ -27,8 +28,9 @@ const parsePost = (postPath: string): Post | undefined => {
   }
 };
 
-export const getAllPosts = () => {
-  const postPaths: string[] = sync(`${POSTS_PATH}/**/*.mdx`);
+export const getAllPosts = (category?: string) => {
+  const categoryPath = category ? category : '**';
+  const postPaths: string[] = sync(`${POSTS_PATH}/${categoryPath}/*.mdx`);
   return postPaths.reduce<Post[]>((ac, postPath) => {
     const post = parsePost(postPath);
     if (!post) return ac;
@@ -40,4 +42,10 @@ export const getPostDetail = async (category: string, slug: string) => {
   const filePath = `${POSTS_PATH}/${category}/${slug}.mdx`;
   const detail = await parsePost(filePath);
   return detail;
+};
+
+export const getCategoryList = () => {
+  const categoryPaths: string[] = sync(`${POSTS_PATH}/*`);
+  const categoryList = categoryPaths.map((cp) => cp.split(path.sep).slice(-1)?.[0]);
+  return categoryList;
 };
