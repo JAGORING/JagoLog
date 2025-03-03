@@ -17,7 +17,7 @@ const parsePost = (postPath: string): Post | undefined => {
 
     return {
       ...grayMatter,
-      url: `blog/${category}/${slug}`.replace(' ', '_'),
+      url: `/blog/${category}/${slug}`,
       tags: grayMatter.tags.filter(Boolean),
       date: dayjs(grayMatter.date).format('YYYY-MM-DD'),
       thumbnail: `/posts/${category}/${slug}/thumbnail.png`,
