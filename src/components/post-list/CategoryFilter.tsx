@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
 
 interface CategoryListProps {
   categoryList?: string[];
@@ -21,17 +22,14 @@ const CategoryFilter = ({ categoryList = [], currentCategory }: CategoryListProp
   return (
     <div className="mb-4 flex gap-2 rounded-xl">
       {categoryList.map((category) => (
-        <button
+        <Button
           key={category}
+          size="sm"
+          variant={currentCategory === category ? 'default' : 'ghost'}
           onClick={() => onCategoryChange(category)}
-          className={`text-sm px-2 py-1 rounded-lg transition-all duration-300 ${
-            currentCategory === category
-              ? 'bg-white/20 text-white'
-              : 'text-gray-400 dark:text-gray-300 hover:bg-white/10 hover:text-white'
-          }`}
         >
           {category}
-        </button>
+        </Button>
       ))}
     </div>
   );

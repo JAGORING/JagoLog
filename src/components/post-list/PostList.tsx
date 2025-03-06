@@ -7,8 +7,6 @@ interface PostListProps {
 }
 
 const PostList = async ({ category = 'All' }: PostListProps) => {
-  console.log('currentCategory category ', category);
-
   const postList: Post[] = await getAllPosts(category);
   const categoryList = await getCategoryList();
 
@@ -20,7 +18,7 @@ const PostList = async ({ category = 'All' }: PostListProps) => {
         {postList.length > 0 ? (
           postList.map((post) => <PostCard key={post.url + post.date} {...post} />)
         ) : (
-          <p className="col-span-full text-center text-gray-400">해당 카테고리의 게시글이 없습니다.</p>
+          <p className="col-span-full text-center text-accent-foreground pt-5">해당 카테고리의 게시글이 없습니다.</p>
         )}
       </ul>
     </section>

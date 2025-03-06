@@ -21,9 +21,11 @@ export default function PostCard(props: Post) {
           </div>
         )}
         <div className="p-3 flex flex-col flex-grow">
-          <div className="text-gray-300 text-xs">{props.date}</div>
-          <p className="text-lg font-semibold text-white line-clamp-1">{props.title}</p>
-          <p className="text-xs text-gray-200 mt-1 line-clamp-1 flex-grow lg:line-clamp-2">{props.description}</p>
+          <div className="text-accent-foreground text-xs">{props.date}</div>
+          <p className="text-lg font-semibold text-foreground line-clamp-1">{props.title}</p>
+          <p className="text-xs text-accent-foreground mt-1 line-clamp-1 flex-grow lg:line-clamp-2">
+            {props.description}
+          </p>
         </div>
       </div>
     </Link>
