@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import DarkModeSwitch from './theme/DarkModeSwitch';
 
 export const Header = () => {
   const path = usePathname();
@@ -12,24 +13,29 @@ export const Header = () => {
 
   return (
     <header className="h-[60px] flex items-center">
-      <div className="w-full flex justify-between text-gray-200">
-        <div className="flex items-center">
-          <Link href="/" className={`text-white`}>
-            <span className="mr-3">@JAGO :</span>
+      <div className="w-full flex justify-between">
+        <div className="flex items-center text-subcolor dark:text-accent">
+          <Link href="/">
+            <span className="mr-3 text-foreground">@JAGO :</span>
           </Link>
 
           <ul className="flex">
             {menuItems.map(({ href, label }, index) => (
               <li key={href} className="relative">
-                <Link href={href} className={`${path === href ? 'text-white' : ''} hover:text-white`}>
+                <Link
+                  href={href}
+                  className={`${path.includes(href) ? 'text-foreground' : ''} hover:text-accent-foreground`}
+                >
                   {label}
                 </Link>
-                {index < menuItems.length - 1 && <span className="mx-2 text-gray-200">/</span>}
+                {index < menuItems.length - 1 && <span className="mx-2">/</span>}
               </li>
             ))}
           </ul>
         </div>
-        <div>Hello!</div>
+        <div>
+          <DarkModeSwitch />
+        </div>
       </div>
     </header>
   );
