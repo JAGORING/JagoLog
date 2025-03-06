@@ -29,7 +29,7 @@ const parsePost = (postPath: string): Post | undefined => {
 };
 
 export const getAllPosts = (category?: string) => {
-  const categoryPath = category ? category : '**';
+  const categoryPath = !category || category !== 'All' ? category : '**';
   const postPaths: string[] = sync(`${POSTS_PATH}/${categoryPath}/*.mdx`);
   return postPaths.reduce<Post[]>((ac, postPath) => {
     const post = parsePost(postPath);
@@ -47,5 +47,5 @@ export const getPostDetail = async (category: string, slug: string) => {
 export const getCategoryList = () => {
   const categoryPaths: string[] = sync(`${POSTS_PATH}/*`);
   const categoryList = categoryPaths.map((cp) => cp.split(path.sep).slice(-1)?.[0]);
-  return categoryList;
+  return ['All', ...categoryList];
 };

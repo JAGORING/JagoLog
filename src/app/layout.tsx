@@ -20,9 +20,9 @@ export default function RootLayout({
         style={{ backgroundImage: "url('/images/body_bg.jpg')" }}
       >
         <div className="h-full w-full flex items-center justify-center">
-          <div className="p-4 bg-black/35 backdrop-blur-md shadow-lg rounded-xl w-full max-w-5xl h-[80vh] lg:h-[75vh]">
+          <div className="p-4 bg-black/45 backdrop-blur-md shadow-lg rounded-xl w-full max-w-5xl h-[85vh] lg:h-[83vh]">
             <Header />
-            <main className="px-3 h-[calc(75vh-60px)] lg:h-[calc(70vh-60px)] flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
+            <main className="px-3 h-[calc(80vh-60px)] lg:h-[calc(78vh-60px)] flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
               {children}
             </main>
           </div>

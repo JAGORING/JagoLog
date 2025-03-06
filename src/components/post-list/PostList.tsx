@@ -6,7 +6,9 @@ interface PostListProps {
   category?: string;
 }
 
-const PostList = async ({ category }: PostListProps) => {
+const PostList = async ({ category = 'All' }: PostListProps) => {
+  console.log('currentCategory category ', category);
+
   const postList: Post[] = await getAllPosts(category);
   const categoryList = await getCategoryList();
 

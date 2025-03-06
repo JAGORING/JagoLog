@@ -11,7 +11,7 @@ const CategoryFilter = ({ categoryList = [], currentCategory }: CategoryListProp
   const router = useRouter();
 
   const onCategoryChange = (value: string) => {
-    if (value === 'all') {
+    if (value === 'All') {
       router.push('/blog');
     } else {
       router.push(`/blog/${value}`);
@@ -19,7 +19,7 @@ const CategoryFilter = ({ categoryList = [], currentCategory }: CategoryListProp
   };
 
   return (
-    <div className="mb-4 flex gap-2 rounded-xl bg-white/30 backdrop-blur-md dark:bg-black/30">
+    <div className="mb-4 flex gap-2 rounded-xl">
       {categoryList.map((category) => (
         <button
           key={category}
@@ -27,7 +27,7 @@ const CategoryFilter = ({ categoryList = [], currentCategory }: CategoryListProp
           className={`text-sm px-2 py-1 rounded-lg transition-all duration-300 ${
             currentCategory === category
               ? 'bg-white/20 text-white'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/10 hover:text-white'
+              : 'text-gray-400 dark:text-gray-300 hover:bg-white/10 hover:text-white'
           }`}
         >
           {category}
