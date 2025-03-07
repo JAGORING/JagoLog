@@ -15,10 +15,10 @@ export const mdxComponents: MDXComponents = {
     return <CustomCodeBlock {...props} />;
   },
   img: Image as any,
-  h1: (props) => <h1 className="text-2xl font-bold my-4" {...props} />,
-  h2: (props) => <h2 className="text-xl font-semibold my-4" {...props} />,
-  h3: (props) => <h3 className="text-lg font-semibold my-4" {...props} />,
-  p: (props) => <p className="text-sm my-2" {...props} />,
-  ul: (props) => <ul className="list-disc pl-5 my-2" {...props} />,
-  li: (props) => <li className="mb-1" {...props} />,
+  h1: (props) => <h1 className="text-2xl font-bold my-6" {...props} />,
+  h2: (props) => <h2 className="text-xl font-semibold my-5" {...props} />,
+  h3: (props) => <h3 className="text-lg font-semibold my-5" {...props} />,
+  p: (props) => <p className="text-sm my-3" {...props} />,
+  ul: (props) => <ul className="text-sm list-disc pl-5 my-4" {...props} />,
+  li: (props) => <li className="mb-2" {...props} />,
 };

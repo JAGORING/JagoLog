@@ -1,0 +1,192 @@
+---
+title: 'JavaScript에서의 this 이해하기'
+description: 'this : 함수를 호출한 객체'
+tags: ['JavaScript']
+date: '2025-03-07 18:28:00'
+---
+
+JavaScript를 공부하면서 this는 항상 헷갈리는 것 같습니다🤔
+
+다양한 문맥에서 this가 어떻게 동작하는지, 그리고 각각의 주의사항과 활용법을 이번 기회에 정리해보겠습니다.
+
+---
+
+## 전역 문맥에서의 this
+
+전역 문맥에서 this는 **전역 객체**를 가리킵니다. 브라우저 환경에서는 **window**가 전역 객체!
+
+아래 예시처럼 아무런 객체 없이 실행하면 this는 window를 참조합니다.
+
+```jsx
+console.log(this); // window
+
+if (true) {
+  console.log(this); // window
+}
+```
+
+이처럼 코드의 위치에 상관없이 전역에서는 동일한 객체를 가리키게 됩니다.
+
+---
+
+## 함수 문맥에서의 this
+
+일반 함수 내에서의 this는 **호출 방식**에 따라 달라집니다.
+기본적으로 일반 함수로 호출하면 전역 객체를 참조합니다.
+
+```jsx
+function call() {
+  console.log(this); // window
+}
+call(); // window ( -> window.call()와 같음)
+```
+
+하지만… **'use strict'** 모드에서는 this가 **undefined**로 바뀌는데, 함수 내부에서의 this 사용을 좀 더 엄격하게 관리하기 때문입니다.
+
+다음 문단처럼 객체의 메소드로 호출하는 경우가 아니라면 일반 함수는 전역 객체를 가리킨다는 것을 기억해야겠습니다!
+
+---
+
+## 객체 메소드에서의 this
+
+객체의 메소드를 호출하면 this는 그 객체 자신을 가리킵니다. 하지만 함수가 객체의 프로퍼티로 할당되어 있더라도 호출 방식에 따라 결과가 달라질 수 있습니다.
+
+```jsx
+const person = {
+  name: 'Jago',
+  callThis: function () {
+    console.log(this);
+  },
+};
+
+person.callThis(); // person
+```
+
+아래 예시처럼 함수가 별도로 선언된 후 객체에 할당되면, 객체를 통해 호출할 때는 해당 객체를, 단독 호출하면 전역 객체를 참조합니다.
+
+```jsx
+const callThis = function () {
+  console.log(this);
+};
+const person2 = {
+  name: 'Jago',
+  callThis,
+};
+
+callThis(); // window
+person2.callThis(); // person2
+```
+
+호출 방식에 따라 결과가 달라지므로, 항상 호출 방식을 주의합시다!
+
+---
+
+## Bind 메소드 사용하기
+
+특정 함수의 this를 **고정**하고 싶다면 **bind** 메소드를 사용할 수 있습니다.
+bind를 사용하면 새로운 함수를 반환하며, 이 함수는 항상 지정한 객체를 this로 사용합니다.
+
+```jsx
+function call() {
+  console.log(this);
+}
+
+const callBind = call.bind({ name: 'AA' }); // this를 해당 객체로 고정
+callBind(); // {name: 'AA'}
+
+const obj = {
+  callBind,
+};
+
+obj.callBind(); // {name: 'AA'}
+```
+
+여기서 또 중요한 사실은 한 번 bind한 함수에 다시 bind를 시도하면 무시된다는 점입니다.
+
+처음 설정한 this가 유지된다는 점을 꼭 기억해야겠습니다.
+
+---
+
+## 이벤트 처리기에서의 this
+
+이벤트 처리기 내에서의 this는 이벤트를 **실행시킨 요소**를 가리킵니다.
+아래 코드를 보면 버튼을 클릭했을 때 this는 해당 버튼 요소를 참조하는 것을 확인할 수 있습니다.
+
+```jsx
+const button = document.getElementById('btn');
+
+button.addEventListener('click', function () {
+  console.log(this);
+});
+
+// 클릭 시, <button ... /> => 이벤트를 실행시킨 해당 요소
+```
+
+실제로 이벤트 핸들러를 작성할 때, this를 이용하면 클릭한 요소에 대한 속성을 손쉽게 조작할 수 있을 것 같습니다😊.
+
+---
+
+## 화살표 함수와 this
+
+화살표 함수는 **this 바인딩** 방식이 일반 함수와 다릅니다.
+
+- 기존 함수는 호출 방식에 따라 this가 결정되지만,
+- 화살표 함수는 자신만의 this를 가지지 않고, **외부 스코프의 this**를 그대로 사용합니다.
+
+```jsx
+const call = () => {
+  console.log(this);
+};
+```
+
+그래서 화살표 함수는 주로 콜백 함수나, this의 값이 바뀌지 않아야 하는 경우에 유용하게 사용됩니다.
+
+단, 객체의 메소드로 사용할 때는 의도와 다르게 동작할 수 있으니 주의가 필요할 것 같습니다.
+
+---
+
+## 추가 팁: new, call, apply 사용법
+
+### new 키워드로 생성된 객체
+
+생성자 함수 내에서 this는 **새로 생성되는 객체**를 가리킵니다.
+
+```jsx
+function Person(name) {
+  this.name = name;
+  console.log(this);
+}
+
+const personInstance = new Person('Jago'); // this는 새롭게 생성된 personInstance를 참조
+```
+
+new 키워드를 사용하면 this가 자동으로 새 객체를 참조하게 되어, 생성자 함수에서 객체 초기화를 할 때 편리합니다.
+
+### call과 apply
+
+함수의 this를 직접 설정할 수 있는 또 다른 방법으로 **call**과 **apply**가 있습니다.
+
+- **call**: 인자를 하나씩 전달
+- **apply**: 인자를 배열로 전달
+
+```jsx
+function greet(greeting, punctuation) {
+  console.log(greeting + ', ' + this.name + punctuation);
+}
+
+const person3 = { name: 'Jago' };
+greet.call(person3, 'Hello', '!'); // Hello, Jago!
+greet.apply(person3, ['Hi', '!!']); // Hi, Jago!!
+```
+
+이처럼 call과 apply는 특정 상황에서 this를 직접 바꿔야 할 때 유용하게 사용할 수 있습니다.
+
+---
+
+## 정리
+
+- **전역 문맥**에서는 this가 전역 객체를,
+- **일반 함수**에서는 호출 방식에 따라 달라지고,
+- **객체 메소드**에서는 해당 객체를 가리킵니다!
+
+또, bind, call, apply를 통해 this를 명시적으로 제어하는 방법도 흥미로웠습니다.

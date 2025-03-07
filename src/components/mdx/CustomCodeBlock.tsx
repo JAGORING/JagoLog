@@ -18,8 +18,8 @@ const CustomCodeBlock = ({ ...props }) => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
-      <button onClick={handleCopy} style={{ position: 'absolute', right: '5px', top: '0px' }}>
+    <div className="relative">
+      <button onClick={handleCopy} className="absolute right-1 top-0">
         {copied ? '✅Copied!' : '📋Copy'}
       </button>
       <pre ref={preRef} {...props}>

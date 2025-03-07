@@ -58,7 +58,7 @@ body {
 
 /* === 코드 블록 전체 스타일 === */
 figure[data-rehype-pretty-code-figure] {
-  @apply relative rounded-lg shadow-md bg-[var(--background)] p-4;
+  @apply relative rounded-lg shadow-md bg-[var(--accent)] p-4 my-6;
 }
 /* === 코드 블록 내부 스타일 === */
 figure[data-rehype-pretty-code-figure] pre {
