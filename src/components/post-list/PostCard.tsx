@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function PostCard(props: Post) {
   return (
     <Link href={props.url} className="block h-full">
-      <div className="relative h-full flex flex-col rounded-lg border border-white/10 bg-white/5 shadow-md transition-all duration-300 hover:border-white/50 hover:shadow-lg">
+      <div className="relative h-full flex flex-col rounded-lg border border-white/10 bg-white/5 shadow-lg transition-all duration-300 hover:border-white/50 hover:shadow-xl">
         {props.thumbnail && (
           <div className="relative aspect-video w-full rounded-lg">
             <Image
