@@ -15,14 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="w-full h-full scrollbar-thin scrollbar-thumb-rounded">
+    <html lang="en" className="h-full scrollbar-thin scrollbar-thumb-rounded ">
+      <body className="flex flex-col w-full min-h-screen mx-auto p-4 bg-white/50 dark:bg-black/50 backdrop-blur-md shadow-lg rounded-xl max-w-4xl">
         <ThemeProvider>
-          <div className="flex flex-col mx-auto p-4 bg-white/50 dark:bg-black/50 backdrop-blur-md shadow-lg rounded-xl max-w-5xl md:h-full">
-            <Header />
-            <main className="px-3 flex flex-1 flex-col justify-between">{children}</main>
-            <Footer />
-          </div>
+          <Header />
+          <main className="px-3 flex flex-1 flex-col">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
