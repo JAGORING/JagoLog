@@ -34,7 +34,7 @@ export const getAllPosts = (category?: string) => {
   return postPaths.reduce<Post[]>((ac, postPath) => {
     const post = parsePost(postPath);
     if (!post) return ac;
-    return [...ac, post];
+    return sortPostListByDate([...ac, post]);
   }, []);
 };
 
@@ -48,4 +48,8 @@ export const getCategoryList = () => {
   const categoryPaths: string[] = sync(`${POSTS_PATH}/*`);
   const categoryList = categoryPaths.map((cp) => cp.split(path.sep).slice(-1)?.[0]);
   return ['All', ...categoryList];
+};
+
+const sortPostListByDate = (postList: Post[]) => {
+  return postList.sort((post1, post2) => new Date(post2.date).getTime() - new Date(post1.date).getTime());
 };
