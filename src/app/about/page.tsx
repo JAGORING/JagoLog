@@ -1,4 +1,171 @@
+import { Card } from '@/components/about/Card';
+import Image from 'next/image';
+
 const About = () => {
-  return <section>About : 소개하는 페이지 → 이력서 정리한 노션 페이지로도 이동하는 링크를 넣을 예정</section>;
+  return (
+    <div className="container mx-auto p-6 space-y-12">
+      <section className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+        <div className="flex-1">
+          <h1 className="text-4xl font-bold">JAGORING</h1>
+          <p className="mt-4 ">
+            3년차 프론트엔드 개발자로서, 지난 결과에 머무르지 않고 앞으로의 기회를 향해 끊임없이 도전하며, 서비스 구조와
+            코드를 지속적으로 고민해 팀과 함께 성장하는 동료가 되겠습니다.
+          </p>
+          <div className="mt-4 space-x-4">
+            <a
+              href="https://github.com/JAGORING"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/harin-lee-74b84b254/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:your.email@example.com" className="text-blue-500 hover:underline">
+              Email
+            </a>
+          </div>
+        </div>
+        <div className="flex-shrink-0">
+          <Image
+            src="/images/body_bg.jpg"
+            alt="홍길동"
+            width={192}
+            height={192}
+            className="w-48 h-48 rounded-lg object-cover"
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semibold mb-4">사용 기술</h2>
+        <h3 className="text-xl font-bold">사용 가능한 기술</h3>
+        <p className="mt-2 ">프론트엔드: React, JavaScript, TypeScript, Styled-Components, tailwindCSS, MUI, Next.js</p>
+        <p className="mt-2 ">도구 및 협업: Git, Jira, Figma</p>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semiboldmb-4">경력 사항</h2>
+        <div className="grid gap-6 ">
+          <Card>
+            <Card.Header title="비즈위즈시스템" period="2022.08 ~ 2025.02" />
+            <Card.Body
+              extraInfo={
+                <>
+                  삼성엔지니어링 공간설계시스템 <span className="text-xs">(2023.03 ~ 2025.02)</span>
+                </>
+              }
+              description={[
+                '사용기술: React, TypeScript, ApexCharts, AG Grid',
+                '- 컴포넌트 재사용성 강화및 공통 UI 개선',
+                '- ApexCharts를 활용한 데이터 시각화기능 구현 및 대시보드 개선',
+                '- 코드 리팩토링 및 팀 내 react-query 도입으로 상태 관리 최적화',
+                '- 무한 스크롤 및 API 최적화 적용 후 초기 로딩 속도 개선',
+              ]}
+            />
+            <Card.Body
+              extraInfo={
+                <>
+                  하비비커뮤니케이션 땡큐캠핑 <span className="text-xs">(2022.12 ~ 2023.03)</span>
+                </>
+              }
+              description={[
+                '사용기술: React, TypeScript, Next.js, react-query, redux-toolkit',
+                '- react-query를 활용한 비동기 데이터 최적화를 통해 검색 속도 향상',
+                '- redux-toolkit을 사용하여 예약 상태 관리, 예약 총액 및 세부 정보 실시간 반영',
+                '- 카카오 맵 API 연동을 통해 캠핑장 위치 제공 및 사용자 경험 개선',
+                '- 구매한 상품과 예약 내역을 쉽게 확인할 수 있도록 UI 및 데이터 연동',
+              ]}
+            />
+            <Card.Body
+              extraInfo={
+                <>
+                  삼성이앤에이 전기설계시스템 <span className="text-xs">(2022.08 ~ 2022.11)</span>
+                </>
+              }
+              description={[
+                '사용기술: React, TypeScript',
+                '- 프로젝트 구조 설계 및 컴포넌트 모듈화',
+                '- 신규 기능 개발 및 유지보수 프로세스 개선',
+              ]}
+            />
+          </Card>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semibold mb-4">학력</h2>
+        <div className="grid gap-6">
+          <Card>
+            <Card.Header title="한세대학교" period="2017.03 - 2021.08" />
+            <Card.Body extraInfo={<>컴퓨터공학과</>} description="학점: 4.28 / 4.5" />
+          </Card>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semibold mb-4">교육 및 자격증</h2>
+        <div className="grid gap-2">
+          <Card>
+            <Card.Header title="노마드 스터디 10주 완성반" period="2024.12" />
+            <Card.Body description="React, framer-motion, TypeScript, TailwindCSS, NextJS, Prisma" />
+          </Card>
+          <Card>
+            <Card.Header title="Programmers JavaScript Study 15기" period="2022.06" />
+            <Card.Body description="5주간 정해진 미션(필수 + 보너스)을 제출하고 코드리뷰를 주고 받는 스터디" />
+          </Card>
+          <Card>
+            <Card.Header title="정보처리기사" period="2021.06" />
+            <Card.Body description="발행 기관: 한국산업인력공단" />
+          </Card>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semibold mb-4">사이드 프로젝트</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <Card.Header title="Jagolog" period="2025.02-2025.03" />
+            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
+          </Card>
+          <Card>
+            <Card.Header title="SNS" period="2024.12" />
+            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
+          </Card>
+          <Card>
+            <Card.Header title="에코그램 식물일지" period="2023.12" />
+            <Card.Body description="식물 성장 일지 관련 구현 (성장일지 작성 페이지, 디테일 페이지)" />
+          </Card>
+          <Card>
+            <Card.Header title="Memong" period="2023.12" />
+            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
+          </Card>
+          <Card>
+            <Card.Header title="이별끝에 우리가 만난다면면" period="2023.07" />
+            <Card.Body description="회사 동료가 개발한 게임의 소개 페이지" />
+          </Card>
+          <Card>
+            <Card.Header title="크롬 확장프로그램" period="2022" />
+            <Card.Body description="페이지에 그려진 모든 이미지 변환 크롬 확장프로그램 개발" />
+          </Card>
+          <Card>
+            <Card.Header title="Game machine" period="2021" />
+            <Card.Body description="JavaScript로 T-Rex Jump Game, breakout game 만들어보기" />
+          </Card>
+          <Card>
+            <Card.Header title="리더스 도준" period="2022.07" />
+            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
+          </Card>
+        </div>
+      </section>
+    </div>
+  );
 };
 export default About;
