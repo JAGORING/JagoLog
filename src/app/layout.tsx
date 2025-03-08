@@ -16,10 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full scrollbar-thin scrollbar-thumb-rounded ">
-      <body className="flex flex-col w-full min-h-screen mx-auto p-4 bg-white/50 dark:bg-black/50 backdrop-blur-md shadow-lg rounded-xl max-w-4xl">
+      <body className="flex flex-col w-full min-h-screen mx-auto px-6 bg-white/50 dark:bg-black/50 dark:shadow-gray-800 dark:shadow-md backdrop-blur-md shadow-lg rounded-xl max-w-4xl">
         <ThemeProvider>
           <Header />
-          <main className="px-3 flex flex-1 flex-col">{children}</main>
+          <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
