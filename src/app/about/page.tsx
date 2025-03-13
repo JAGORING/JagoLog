@@ -1,9 +1,10 @@
-import { Card } from '@/components/about/Card';
+import SideProjectCard from '@/components/about/SideProjectCard';
+import { Card } from '@/components/ui/Card';
 import Image from 'next/image';
 
 const About = () => {
   return (
-    <div className="container mx-auto p-6 space-y-12">
+    <div className="container mx-auto space-y-12">
       <section className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
         <div className="flex-1">
           <h1 className="text-4xl font-bold">JAGORING</h1>
@@ -46,9 +47,8 @@ const About = () => {
 
       <section>
         <h2 className="text-3xl font-semibold mb-4">사용 기술</h2>
-        <h3 className="text-xl font-bold">사용 가능한 기술</h3>
-        <p className="mt-2 ">프론트엔드: React, JavaScript, TypeScript, Styled-Components, tailwindCSS, MUI, Next.js</p>
-        <p className="mt-2 ">도구 및 협업: Git, Jira, Figma</p>
+        <p className="mt-2">프론트엔드: React, JavaScript, TypeScript, Styled-Components, tailwindCSS, MUI, Next.js</p>
+        <p className="mt-2">도구 및 협업: Git, Jira, Figma</p>
       </section>
 
       <section>
@@ -64,7 +64,7 @@ const About = () => {
               }
               description={[
                 '사용기술: React, TypeScript, ApexCharts, AG Grid',
-                '- 컴포넌트 재사용성 강화및 공통 UI 개선',
+                '- 컴포넌트 재사용성 강화 및 공통 UI 개선',
                 '- ApexCharts를 활용한 데이터 시각화기능 구현 및 대시보드 개선',
                 '- 코드 리팩토링 및 팀 내 react-query 도입으로 상태 관리 최적화',
                 '- 무한 스크롤 및 API 최적화 적용 후 초기 로딩 속도 개선',
@@ -112,7 +112,7 @@ const About = () => {
 
       <section>
         <h2 className="text-3xl font-semibold mb-4">교육 및 자격증</h2>
-        <div className="grid gap-2">
+        <div className="grid gap-6">
           <Card>
             <Card.Header title="노마드 스터디 10주 완성반" period="2024.12" />
             <Card.Body description="React, framer-motion, TypeScript, TailwindCSS, NextJS, Prisma" />
@@ -131,41 +131,103 @@ const About = () => {
       <section>
         <h2 className="text-3xl font-semibold mb-4">사이드 프로젝트</h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <Card.Header title="Jagolog" period="2025.02-2025.03" />
-            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
-          </Card>
-          <Card>
-            <Card.Header title="SNS" period="2024.12" />
-            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
-          </Card>
-          <Card>
-            <Card.Header title="에코그램 식물일지" period="2023.12" />
-            <Card.Body description="식물 성장 일지 관련 구현 (성장일지 작성 페이지, 디테일 페이지)" />
-          </Card>
-          <Card>
-            <Card.Header title="Memong" period="2023.12" />
-            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
-          </Card>
-          <Card>
-            <Card.Header title="이별끝에 우리가 만난다면면" period="2023.07" />
-            <Card.Body description="회사 동료가 개발한 게임의 소개 페이지" />
-          </Card>
-          <Card>
-            <Card.Header title="크롬 확장프로그램" period="2022" />
-            <Card.Body description="페이지에 그려진 모든 이미지 변환 크롬 확장프로그램 개발" />
-          </Card>
-          <Card>
-            <Card.Header title="Game machine" period="2021" />
-            <Card.Body description="JavaScript로 T-Rex Jump Game, breakout game 만들어보기" />
-          </Card>
-          <Card>
-            <Card.Header title="리더스 도준" period="2022.07" />
-            <Card.Body description="자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다." />
-          </Card>
+          {sideProjects.map((project, index) => (
+            <SideProjectCard key={index} {...project} />
+          ))}
         </div>
       </section>
     </div>
   );
 };
 export default About;
+
+const sideProjects = [
+  {
+    title: 'Jagolog',
+    period: '2025.02-2025.03',
+    description: '자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다.',
+    details: {
+      purpose: '프로젝트의 목적은 ...',
+      tech: 'React, Node.js 등',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/jagolog1.jpg', '/images/jagolog2.jpg'],
+    },
+  },
+  {
+    title: 'SNS',
+    period: '2024.12',
+    description: '자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다.',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/body_bg.jpg', '/images/body_bg.jpg', '/images/body_bg.jpg'],
+    },
+  },
+  {
+    title: '에코그램 식물일지',
+    period: '2023.12',
+    description: '식물 성장 일지 관련 구현 (성장일지 작성 페이지, 디테일 페이지)',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+  {
+    title: 'Memong',
+    period: '2023.12',
+    description: '자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다.',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+  {
+    title: '이별끝에 우리가 만난다면',
+    period: '2023.07',
+    description: '회사 동료가 개발한 게임의 소개 페이지',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+  {
+    title: '크롬 확장프로그램',
+    period: '2022',
+    description: '페이지에 그려진 모든 이미지 변환 크롬 확장프로그램 개발',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+  {
+    title: 'Game machine',
+    period: '2021',
+    description: 'JavaScript로 T-Rex Jump Game, breakout game 만들어보기',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+  {
+    title: '리더스 도준',
+    period: '2022.07',
+    description: '자체 개발한 웹 애플리케이션으로, React와 Node.js를 활용해 구현했습니다.',
+    details: {
+      purpose: 'SNS 플랫폼 개발을 통한 소셜 네트워크 구축',
+      tech: 'React, Node.js, Socket.io',
+      features: ['주요기능 1', '주요기능 2'],
+      images: ['/images/sns1.jpg'],
+    },
+  },
+];
