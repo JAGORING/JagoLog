@@ -1,5 +1,5 @@
 import SideProjectCard from '@/components/about/SideProjectCard';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 
 const About = () => {

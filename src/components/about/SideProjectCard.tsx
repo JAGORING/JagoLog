@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Card } from '../ui/Card';
 import Modal from '../ui/modal';
+import { Card } from '../ui/card';
 
 interface ProjectDetails {
   purpose: string;

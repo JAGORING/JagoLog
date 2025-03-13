@@ -2,6 +2,7 @@ import { mdxComponents } from '@/components/mdx/MdxComponent';
 import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkBreaks from 'remark-breaks';
+import remarkToc from 'remark-toc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const PostContent = ({ content }: { content: string }) => {
@@ -15,6 +16,7 @@ const PostContent = ({ content }: { content: string }) => {
             remarkPlugins: [
               remarkGfm, // Github Flavored Markdown(GFM) 사용 플러그인
               remarkBreaks, // mdx > 1줄 개행
+              remarkToc,
             ],
             rehypePlugins: [
               [
