@@ -20,7 +20,7 @@
   --secondary: #f1f5f9;
   --secondary-foreground: #292929;
 
-  --accent: #f1f5f9;
+  --accent: #d2d3d3;
   --accent-foreground: #0f172a;
 }
 
@@ -32,8 +32,8 @@
   --secondary: hsl(217.2 32.6% 17.5%);
   --secondary-foreground: var(--white);
 
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
+  --accent: #0f172a;
+  --accent-foreground: #d2d3d3;
 }
 
 @layer utilities {
@@ -81,4 +81,9 @@ figure[data-rehype-pretty-code-figure] div[data-rehype-pretty-code-title] {
 /* === 코드 블록 내부 코드 스타일 === */
 figure[data-rehype-pretty-code-figure] code {
   @apply font-mono text-sm bg-transparent;
+}
+
+::backdrop {
+  background-color: var(--background);
+  opacity: 0.8;
 }
