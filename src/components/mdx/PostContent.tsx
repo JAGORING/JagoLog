@@ -1,6 +1,7 @@
 import { mdxComponents } from '@/components/mdx/MdxComponent';
 import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
 import remarkBreaks from 'remark-breaks';
 import remarkToc from 'remark-toc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -19,6 +20,7 @@ const PostContent = ({ content }: { content: string }) => {
               remarkToc,
             ],
             rehypePlugins: [
+              rehypeSlug,
               [
                 rehypePrettyCode,
                 {

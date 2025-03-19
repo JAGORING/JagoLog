@@ -41,6 +41,10 @@ export const getAllPosts = (category?: string) => {
 export const getPostDetail = async (category: string, slug: string) => {
   const filePath = `${POSTS_PATH}/${category}/${slug}.mdx`;
   const detail = await parsePost(filePath);
+  if (detail) {
+    detail.toc = await getHeadingForToc(detail.content);
+  }
+
   return detail;
 };
 
@@ -48,6 +52,38 @@ export const getCategoryList = () => {
   const categoryPaths: string[] = sync(`${POSTS_PATH}/*`);
   const categoryList = categoryPaths.map((cp) => cp.split(path.sep).slice(-1)?.[0]);
   return ['All', ...categoryList];
+};
+
+export const getHeadingForToc = async (content: string): Promise<TocItem[]> => {
+  const toc: TocItem[] = [];
+  const headingRegex = /^(#{1,6})\s+(.*)$/gm;
+  let match;
+  const idCount: Record<string, number> = {};
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const hashes = match[1];
+    const text = match[2].trim();
+    let id = text
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s-]/gu, '')
+      .trim()
+      .replace(/\s+/g, '-');
+
+    if (!id) {
+      id = 'heading';
+    }
+
+    if (idCount[id] !== undefined) {
+      idCount[id] += 1;
+      id = `${id}-${idCount[id]}`;
+    } else {
+      idCount[id] = 0;
+    }
+
+    toc.push({ id, text: text, depth: hashes.length });
+  }
+
+  return toc;
 };
 
 const sortPostListByDate = (postList: Post[]) => {
