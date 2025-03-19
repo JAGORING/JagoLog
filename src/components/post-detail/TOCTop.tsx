@@ -9,13 +9,13 @@ const TOCTop = ({ toc }: Props) => {
 
   return (
     <nav className="xl:hidden">
-      <h2 id="table-of-contents-top">Table of contents</h2>
-      <ul>
+      <h2 className="font-bold text-2xl">Table of contents</h2>
+      <ul className="-mt-2 py-5 px-4 list-disc">
         {toc.map((item) => (
-          <li key={item.id} style={{ marginLeft: `${(item.depth - 1) * 16}px` }} className={`transition-all py-1`}>
+          <li key={item.id} style={{ marginLeft: `${item.depth - 1}rem` }} className={`transition-all py-2`}>
             <Link
               href={`#${item.id}`}
-              className="block text-sm text-accent-foreground hover:underline hover:text-pointColor transition-colors"
+              className="block text-ms text-accent-foreground underline underline-offset-[5px] decoration-wavy decoration-subcolor hover:text-pointColor hover:decoration-pointColor transition-colors"
             >
               {item.text}
             </Link>

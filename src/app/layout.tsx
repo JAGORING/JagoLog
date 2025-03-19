@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scrollbar-thin scrollbar-thumb-rounded ">
+    <html lang="en" className="h-full scrollbar-thin scrollbar-thumb-rounded scroll-smooth">
       <body className="flex flex-col w-full min-h-screen mx-auto px-6 bg-white/50 dark:bg-black/50 dark:shadow-gray-800 dark:shadow-md backdrop-blur-md shadow-lg rounded-xl max-w-4xl">
         <ThemeProvider>
           <Header />
