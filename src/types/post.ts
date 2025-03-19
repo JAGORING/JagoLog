@@ -1,6 +1,7 @@
 type Post = PostMatter & {
   url: string;
   content: string;
+  toc?: TocItem[];
 };
 type PostMatter = {
   title: string;
@@ -8,4 +9,10 @@ type PostMatter = {
   thumbnail?: string;
   tags: string[];
   date: string;
+};
+
+type TocItem = {
+  id: string;
+  text: string;
+  depth: number;
 };

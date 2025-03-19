@@ -1,5 +1,7 @@
 import PostContent from '@/components/mdx/PostContent';
 import { PostHeader } from '@/components/mdx/PostHeader';
+import TOCSide from '@/components/post-detail/TOCSide';
+import TOCTop from '@/components/post-detail/TOCTop';
 import { getPostDetail } from '@/libs/post';
 
 type Props = {
@@ -14,7 +16,11 @@ const PostDetail = async ({ params }: Props) => {
   return (
     <section>
       {post && <PostHeader post={post} />}
-      {post && <PostContent content={post.content} />}
+      <TOCTop toc={post?.toc || []} />
+      <article className="relative">
+        <TOCSide toc={post?.toc || []} />
+        {post && <PostContent content={post.content} />}
+      </article>
     </section>
   );
 };
