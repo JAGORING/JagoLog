@@ -16,3 +16,17 @@ type TocItem = {
   text: string;
   depth: number;
 };
+
+interface ProjectDetails {
+  purpose: string;
+  techs: string[];
+  features: string[];
+  images?: string[];
+}
+
+interface SideProject {
+  title: string;
+  period: string;
+  description: string;
+  details: ProjectDetails;
+}

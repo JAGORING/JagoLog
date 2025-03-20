@@ -4,20 +4,6 @@ import Image from 'next/image';
 import Modal from '../ui/modal';
 import { Card } from '../ui/card';
 
-interface ProjectDetails {
-  purpose: string;
-  tech: string;
-  features: string[];
-  images?: string[];
-}
-
-interface SideProject {
-  title: string;
-  period: string;
-  description: string;
-  details: ProjectDetails;
-}
-
 interface SideProjectCardProps extends SideProject {}
 
 const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
@@ -31,6 +17,13 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
       >
         <Card className="h-full">
           <Card.Header title={project.title} period={project.period} />
+          <div className="flex flex-wrap gap-2 mb-3">
+            {project.details.techs.map((tech) => (
+              <div className="text-xs font-semibold bg-pointColor text-white px-2 py-1 rounded-md" key={tech}>
+                {tech}
+              </div>
+            ))}
+          </div>
           <Card.Body
             description={project.description}
             extraInfo={<span className="text-xs text-gray-400">자세히 보기 &rarr;</span>}
@@ -67,7 +60,7 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
             </div>
             <div>
               <h4 className="text-xl font-semibold">사용 기술</h4>
-              <p className="text-accent-foreground">{project.details.tech}</p>
+              <p className="text-accent-foreground">{project.details.techs.join(', ')}</p>
             </div>
             <div>
               <h4 className="text-xl font-semibold">주요 구현 기능</h4>
