@@ -58,7 +58,7 @@ const Modal: ModalCompound = ({ isOpen, onClose, children }) => {
     <>
       <dialog
         ref={dialogRef}
-        className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg p-0 m-0 border-0 shadow-xl max-w-3xl w-full"
+        className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg p-0 m-0 border-0 shadow-xl max-w-2xl w-full"
         onClick={(e) => e.stopPropagation()}
         onCancel={(e) => {
           e.preventDefault();

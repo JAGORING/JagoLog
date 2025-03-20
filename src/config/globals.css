@@ -84,6 +84,6 @@ figure[data-rehype-pretty-code-figure] code {
 }
 
 ::backdrop {
-  background-color: var(--background);
+  background-color: var(--black);
   opacity: 0.8;
 }
