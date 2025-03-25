@@ -62,7 +62,7 @@ const About = () => {
                 extraInfo={
                   <>
                     {work.company}
-                    <span className="text-xs">
+                    <span className="text-xs ml-1">
                       ({work.start} ~ {work.end})
                     </span>
                   </>

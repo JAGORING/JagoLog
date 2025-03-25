@@ -43,7 +43,7 @@ export const RESUME_DATA = {
         '사용기술: React, TypeScript, Next.js, react-query, redux-toolkit',
         '- react-query의 캐싱 및 중복 요청 방지 기능을 활용하여 검색 속도 단축',
         '- redux-toolkit을 활용해 예약 상태 및 총액을 효율적으로 관리하고 세부 정보를 실시간 반영',
-        '- 카카오 맵 API를 연동하여 캠핑장 위치 및 지도 마커 기능 제공하여 사용자 경험 향상',
+        '- 카카오 맵 API를 연동하여 캠핑장 위치 및 지도 마커 기능 제공하여 사용자 경험 개선',
         '- 구매한 상품과 예약 내역을 쉽게 확인할 수 있도록 UI 및 데이터 연동',
       ],
     },

@@ -1,0 +1,177 @@
+---
+title: '합성 컴포넌트 (Compound Component Pattern)'
+description: '실무 프로젝트 개선 과정에서 제안한 반복되는 UI와 복잡한 props 분기를 줄이기 위한 방법'
+tags: ['Pattern', 'Repactoring']
+date: '2023-10-06 14:28:00'
+---
+
+## 1. 개요
+
+회사에서 진행한 프로젝트에서 전체적으로 코드의 일관성이 부족하고 유지보수가 어려운 부분이 많아 이를 개선하자는 논의가 있었습니다. 프론트엔드 회의 시간에 저는 **합성 컴포넌트 패턴**을 제안했고 더 나은 컴포넌트 설계 방식을 고민하게 되었습니다.
+
+프로젝트에서 프론트엔드 개발이 진행되면서 기획과 디자인이 자주 변경되고 기존 컴포넌트에 기능을 추가하거나 새로운 컴포넌트를 만들어야 하는 상황이 많았습니다. 이때 조건부 렌더링이나 props를 통한 분기 처리로 인해 코드가 복잡해지는 문제가 있었습니다.
+
+이러한 상황에서 합성 컴포넌트를 도입하면서 **더 유연하고 재사용성이 높은 컴포넌트를 만들 수 있으며 관심사를 분리하여 코드의 유지보수성을 높일 수 있었습니다.**
+
+---
+
+## 2. 합성 컴포넌트란?
+
+합성 컴포넌트 패턴은 **여러 개의 작은 컴포넌트를 조합하여 더 큰 컴포넌트를 구성하는 방식**입니다. 각각의 작은 컴포넌트는 특정한 UI 역할을 담당하고, 이들을 조합하여 하나의 완성된 컴포넌트를 구성할 수 있습니다.
+
+### ✅ 합성 컴포넌트의 장점
+
+1. **모듈화와 재사용성 증가**
+    - 컴포넌트를 작은 단위로 나누어 독립적으로 활용할 수 있습니다.
+2. **유지보수 용이성**
+    - 새로운 기능 추가 및 수정이 용이하며, 확장성이 높습니다.
+3. **코드의 가독성과 이해도 증가**
+    - 관심사를 분리하여 UI 코드에 집중할 수 있습니다.
+4. **재사용 가능한 빌딩 블록 제공**
+    - 여러 곳에서 동일한 컴포넌트를 일관되게 사용할 수 있습니다.
+
+---
+
+## 3. 합성 컴포넌트 구현 예제
+
+### 📌 예제 1: 카드 컴포넌트 만들기
+
+아래 예제는 **Card** 컴포넌트를 여러 개의 작은 컴포넌트(CardContainer, CardText, CardImage, CardActions)로 나누어 구성한 예제입니다.
+
+```
+// CardContainer Component
+const CardContainer = ({ children }) => {
+  return <div className="card-container">{children}</div>;
+};
+
+// CardText Component
+const CardText = ({ text }) => {
+  return <div className="card-text">{text}</div>;
+};
+
+// CardImage Component
+const CardImage = ({ src, alt }) => {
+  return <img className="card-image" src={src} alt={alt} />;
+};
+
+// CardActions Component
+const CardActions = ({ children }) => {
+  return <div className="card-actions">{children}</div>;
+};
+
+// CardExample 사용 예시
+const CardExample = () => {
+  return (
+    <CardContainer>
+      <CardImage src="image-url" alt="Image Alt Text" />
+      <CardText text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+      <CardActions>
+        <button onClick={() => alert('Button clicked')}>Click me</button>
+      </CardActions>
+    </CardContainer>
+  );
+};
+
+```
+
+이처럼 작은 단위의 컴포넌트들을 합성하여 하나의 완성된 UI를 구성할 수 있습니다.
+
+---
+
+### 📌 예제 2: `Object.assign`을 활용한 합성 컴포넌트
+
+`Object.assign`을 활용하면 컴포넌트를 그룹화하여 더욱 직관적인 사용이 가능합니다.
+
+### 1️⃣ 서브 컴포넌트 구현
+
+```
+interface SpaceInfoHeaderProps {
+  children: React.ReactNode;
+}
+
+interface SpaceNameTextProps {
+  children: React.ReactNode;
+}
+
+const SpaceInfoHeader: React.FC<SpaceInfoHeaderProps> = ({ children }) => {
+  return <div className={/* SpaceInfoHeader 스타일 */}>{children}</div>;
+};
+
+const SpaceNameText: React.FC<SpaceNameTextProps> = ({ children }) => {
+  return <p className={/* SpaceNameText 스타일 */}>{children}</p>;
+};
+
+```
+
+### 2️⃣ 메인 컴포넌트 구현
+
+```
+interface SpaceInfoMainProps {
+  children: React.ReactNode;
+}
+
+const SpaceInfoMain: React.FC<SpaceInfoMainProps> = ({ children }) => {
+  return <div className={/* SpaceInfoMain 스타일 */}>{children}</div>;
+};
+
+```
+
+### 3️⃣ 메인 & 서브 컴포넌트를 묶어서 `Object.assign`으로 export
+
+```
+export const SpaceInfo = Object.assign(SpaceInfoMain, {
+  Header: SpaceInfoHeader,
+  NameText: SpaceNameText,
+});
+
+// 사용 예시
+<SpaceInfo>
+  <SpaceInfo.Header>
+    <button>생성하기</button>
+  </SpaceInfo.Header>
+  <SpaceInfo.NameText>
+    공간 이름
+  </SpaceInfo.NameText>
+</SpaceInfo>
+
+```
+
+이 방식의 장점은 **컴포넌트의 구조를 직관적으로 표현하면서 코드의 가독성과 유지보수성을 높일 수 있다는 점**입니다.
+
+---
+
+## 4. 정리
+
+합성 컴포넌트 패턴을 사용하면 컴포넌트의 재사용성과 유지보수성을 높이고 관심사 분리를 통해 코드의 가독성을 향상시킬 수 있습니다.
+
+**Object.assign**을 활용해서 컴포넌트를 마치 네임스페이스처럼 구조화할 수 있어서 사용성과 명확성이 높아지고 컴포넌트 관계를 이해하는 데 도움이 됩니다. 컴포넌트를 설계할 때 합성 컴포넌트 패턴을 활용해보는 것도 좋은 방법이 될 것 같습니다! 😊
+
+---
+
+[참고 사이트]
+
+1. **합성 컴포넌트로 재사용성 극대화하기**
+    
+    [합성 컴포넌트로 재사용성 극대화하기 | 카카오엔터테인먼트 FE 기술블로그](https://fe-developers.kakaoent.com/2022/220731-composition-component/)
+    
+2. **변경에 유연한 컴포넌트**
+    
+    [변경에 유연한 컴포넌트](https://jbee.io/web/components-should-be-flexible/)
+    
+3. **5가지 최신 고급 리액트 패턴 - ① Compound Component, Control Props, Custom Hook**
+    
+    [5가지 최신 고급 리액트 패턴 - ① Compound Component, Control Props, Custom Hook](https://wishket.tistory.com/12)
+    
+4. **React Hooks: Compound Components**
+    
+    [React Hooks: Compound Components](https://kentcdodds.com/blog/compound-components-with-react-hooks)
+    
+5. **디자인 시스템에 Compound Component Pattern 적용해보기 & 서브 컴포넌트**
+    
+    [[React] 디자인 시스템에 Compound Component Pattern 적용해보기](https://iyu88.github.io//react/2023/03/25/react-compound-component-pattern.html)
+    
+    [컴포넌트 합성 : 서브 컴포넌트의 모든 것](https://itchallenger.tistory.com/906)
+    
+6. 스파게티 코드의 개선으로 참고하면 좋을 **관심사를 분리**
+    
+    [React CleanCode #1, 합성으로 관심사를 분리하기](https://happysisyphe.tistory.com/62)
