@@ -38,7 +38,7 @@ date: '2023-10-06 14:28:00'
 
 아래 예제는 **Card** 컴포넌트를 여러 개의 작은 컴포넌트(CardContainer, CardText, CardImage, CardActions)로 나누어 구성한 예제입니다.
 
-```
+```jsx
 const CardContainer = ({ children }) => {
   return <div className="card-container">{children}</div>;
 };
@@ -81,7 +81,7 @@ Object.assign을 활용하면 컴포넌트를 그룹화하여 더욱 직관적�
 
 ### 1. 서브 컴포넌트 구현
 
-```
+```jsx
 interface SpaceInfoHeaderProps {
   children: React.ReactNode;
 }
@@ -102,7 +102,7 @@ const SpaceNameText: React.FC<SpaceNameTextProps> = ({ children }) => {
 
 ### 2. 메인 컴포넌트 구현
 
-```
+```jsx
 interface SpaceInfoMainProps {
   children: React.ReactNode;
 }
@@ -115,7 +115,7 @@ const SpaceInfoMain: React.FC<SpaceInfoMainProps> = ({ children }) => {
 
 ### 3. 메인 & 서브 컴포넌트를 묶어서 Object.assign로 export
 
-```
+```jsx
 export const SpaceInfo = Object.assign(SpaceInfoMain, {
   Header: SpaceInfoHeader,
   NameText: SpaceNameText,

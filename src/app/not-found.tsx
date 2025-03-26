@@ -4,7 +4,9 @@ import Link from 'next/link';
 const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full space-y-6 py-12">
-      <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">404</h1>
+      <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-black to-black/50 dark:from-white dark:to-white/50">
+        404
+      </h1>
 
       <h2 className="text-2xl font-medium">페이지를 찾을 수 없습니다</h2>
 

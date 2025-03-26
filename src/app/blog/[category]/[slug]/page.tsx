@@ -3,10 +3,23 @@ import { PostHeader } from '@/components/mdx/PostHeader';
 import TOCSide from '@/components/post-detail/TOCSide';
 import TOCTop from '@/components/post-detail/TOCTop';
 import { getPostDetail } from '@/libs/post';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: { category: string; slug: string };
 };
+
+export async function generateMetadata({ params: { category, slug } }: Props): Promise<Metadata> {
+  const post = await getPostDetail(category, slug);
+  if (!post) notFound();
+  const title = `JAGORING | ${post.title}`;
+
+  return {
+    title,
+    description: post.description,
+  };
+}
 
 const PostDetail = async ({ params }: Props) => {
   const { category, slug } = params;
