@@ -12,15 +12,33 @@ const parsePost = (postPath: string): Post | undefined => {
     const { content, data } = matter(file);
     const grayMatter = data as PostMatter;
 
-    const path = postPath.slice(postPath.indexOf(BASE_PATH)).replace(`${BASE_PATH}`, '').replace('.mdx', '');
-    const [category, slug] = path.split('\\');
+    const _path = postPath.slice(postPath.indexOf(BASE_PATH)).replace(`${BASE_PATH}`, '').replace('.mdx', '');
+
+    const parts = _path.split(/[/\\]/).filter(Boolean);
+    if (parts.length < 2) {
+      console.error('Unexpected path format:', _path);
+      return undefined;
+    }
+    const [category, slug] = parts;
+
+    console.log('Parsed values:', { category, slug });
+
+    if (!category || !slug) {
+      console.error('Missing category or slug:', { category, slug });
+      return undefined;
+    }
+    const thumbnailPath1 = path.join(process.cwd(), 'public', 'posts', category, slug, 'thumbnail.png');
+
+    const thumbnail = fs.existsSync(thumbnailPath1)
+      ? `/posts/${category}/${slug}/thumbnail.png`
+      : `/posts/${category}/thumbnail.png`;
 
     return {
       ...grayMatter,
       url: `/blog/${category}/${slug}`,
       tags: grayMatter.tags.filter(Boolean),
       date: dayjs(grayMatter.date).format('YYYY-MM-DD'),
-      thumbnail: `/posts/${category}/${slug}/thumbnail.png`,
+      thumbnail,
       content,
     };
   } catch (e) {
