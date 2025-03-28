@@ -1,0 +1,81 @@
+---
+title: 'Type Challenge - Hello World'
+description: 'Type Challenge 시작 및 푸는 방법'
+tags: ['TypeScript']
+date: '2024-11-20 18:30:00'
+---
+
+[Type Challenge](https://github.com/type-challenges/type-challenges)
+
+동료 개발자 덕분에 Type Challenge를 접하게 되었고, 부족했던 Type Script를 잡아나가기에 좋은 것 같아서 주에 3회 정도 문제 풀이를 하기로 했다.
+문제 풀면서 고민하고 생각하면서 많이 얻을 수 있을 것 같으니 꾸준히 열심히 해봐야겠다!
+
+### Type Challenge 이용법
+
+난이도 별로 문제가 정리되어있어서 워밍업부터 차근차근 풀어볼 계획이다.
+
+문제를 클릭하면 아래와 같은 화면이 나오는데,
+
+![출처: 2주차 미션 pull request ](/posts/TypeScript/Hello_World/tc1.png)Take the Challenge를 눌러서 문제를 풀어볼 수 있다.
+문제 풀기 전에는 왼쪽처럼 테스트 케이스 부분에서 빨간 밑줄이 그어져있고, 문제를 해결하면 빨간 밑줄이 사라진다!
+
+![출처: 2주차 미션 pull request ](/posts/TypeScript/Hello_World/tc2.png)
+
+그리고 문제를 풀었다면 **Share your Solutions** 버튼을 통해 내 코드를 Issue 할 수 있다.
+
+![출처: 2주차 미션 pull request ](/posts/TypeScript/Hello_World/tc3.png)
+앞으로 꾸준히 해보자고-💪
+
+---
+
+### Hello World - 워밍업 단계
+
+```tsx
+// 내 풀이
+type HelloWorld = string
+
+/* _____________ 테스트 케이스 _____________ */
+import type { Equal, Expect, NotAny } from '@type-challenges/utils'
+
+type cases = [
+  Expect<NotAny<HelloWorld>>,
+  Expect<Equal<HelloWorld, string>>,
+]
+
+```
+
+워밍업 단계에 맞게 첫 시작은 아주 간단했다.
+
+테스트 케이스에서 어떤 타입 확인이 이루어지는지 궁금해서 @type-challenges/utils 파일에서  Equal, Expect, NotAny 타입을 확인해보았다.
+
+```tsx
+export type Expect<T extends true> = T
+
+export type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extendsㄴ
+  (<T>() => T extends Y ? 1 : 2) ? true : false
+
+export type IsAny<T> = 0 extends (1 & T) ? true : false
+export type NotAny<T> = true extends IsAny<T> ? false : true
+```
+
+- **<code>{`Expect<T extends true>`}</code>**
+
+  - T가 true와 일치하는지 확인한 후, 일치하면 특정 타입을 반환시켜주는 역할을 한다
+
+- **<code>{`Equal<X, Y>`}</code>**
+
+  - <code>{`'<T>() => T extends X ? 1 : 2'`}</code> 제네릭 함수 타입으로 함수 반환 타입이 T extends X 조건에 따라 1 또는 2가 된다.
+  - <code>{`'(<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2)'`}</code> 로 서로 확장 관계인지 확인하고 동등한 구조인지에 따라 true/false 값을 반환한다.
+
+- **<code>{`IsAny<T>`}</code>**
+
+  - 'any'는 TypeScript에서 **모든 타입의 슈퍼 타입이자 서브 타입**이라서 '1 & T'처럼 임의의 비트 연산을 적용해도 T가 any라면 결과는 항상 any가 된다.
+  - 'T'가 **any**일 때만 **true**를 반환
+
+- **<code>{`NotAny<T>`}</code>**
+
+  - <code>{`IsAny<T>`}</code>를 바탕으로 동작함
+  - T가 any인지 아닌지를 반대로 판단하여, **any가 아니면 true, any라면 false**를 반환
+
+  사실 처음에 풀 때는 단순하게 <code>{`Equal<HelloWorld, string>`}</code> HelloWorld가 string과 같아야 하니까 타입은 string! 으로 생각했다. 하지만 utils 파일에서 어떤 동작이 일어나는지 분석하고 정리하니까 타입을 파악하는 흐름이 훨씬 더 정확해진 것 같다🤗
