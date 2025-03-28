@@ -27,6 +27,7 @@ interface ProjectDetails {
 interface SideProject {
   title: string;
   period: string;
+  demoSite?: string;
   description: string;
   details: ProjectDetails;
 }

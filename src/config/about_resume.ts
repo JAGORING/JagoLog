@@ -111,7 +111,8 @@ export const SIDE_PROJECT = [
   },
   {
     title: 'Memong',
-    period: '2023.12',
+    period: '2023.10',
+    demoSite: 'https://memong.vercel.app/',
     description: '미몽컴퍼니의 웹 소개 페이지 개발. 기업 정보 및 서비스 소개를 위한 반응형 웹사이트 구축',
     details: {
       purpose: '기업 브랜드 홍보를 위한 웹사이트 제작 및 유지보수',
@@ -123,6 +124,7 @@ export const SIDE_PROJECT = [
   {
     title: '이별끝에 우리가 만난다면',
     period: '2023.07',
+    demoSite: 'https://fascinating-tartufo-751f46.netlify.app/',
     description: '게임 소개 및 다운로드 지원을 위한 웹사이트 개발. 게임 정보, 스크린샷, 플레이 방법 안내',
     details: {
       purpose: '출시된 인디 게임의 홍보 및 다운로드 유도',
@@ -133,7 +135,7 @@ export const SIDE_PROJECT = [
   },
   {
     title: '크롬 확장프로그램',
-    period: '2022',
+    period: '2023.05',
     description: '웹사이트 방문 시 모든 이미지를 지정된 대체 이미지로 변경하는 크롬 확장 프로그램 개발',
     details: {
       purpose: '웹 콘텐츠 필터링 기능을 구현하며 브라우저 확장 프로그램 개발 경험 습득',
@@ -144,7 +146,8 @@ export const SIDE_PROJECT = [
   },
   {
     title: 'Game Machine',
-    period: '2021',
+    period: '2022.01',
+    demoSite: 'https://arcadegame0.netlify.app/',
     description: 'JavaScript를 활용하여 T-Rex Jump Game 및 Breakout Game 개발. 키보드 이벤트 및 캔버스 활용',
     details: {
       purpose: '클래식 게임 구현을 통해 JavaScript 기반 게임 개발 경험 습득',
@@ -155,7 +158,8 @@ export const SIDE_PROJECT = [
   },
   {
     title: '리더스 도준',
-    period: '2022.07',
+    period: '2021.03',
+    demoSite: 'https://leadersdojun.vercel.app/',
     description: '리더스 도준 한방 병원의 웹사이트를 외주 프로젝트로 개발. 병원 소개 및 예약 문의 기능 구현',
     details: {
       purpose: '의료 기관의 온라인 홍보 및 환자 편의를 위한 웹사이트 구축',

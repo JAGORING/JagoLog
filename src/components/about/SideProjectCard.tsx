@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Modal from '../ui/modal';
 import { Card } from '../ui/card';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 interface SideProjectCardProps extends SideProject {}
 
@@ -53,6 +55,16 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
               ))}
             </div>
           )}
+          {project.demoSite && (
+            <div className="my-4">
+              <Link href={project.demoSite} target="_blank">
+                <Button size="sm" variant="outline">
+                  Demo
+                </Button>
+              </Link>
+            </div>
+          )}
+
           <div className="space-y-4 mt-2">
             <div>
               <h4 className="text-xl font-semibold">목적</h4>
