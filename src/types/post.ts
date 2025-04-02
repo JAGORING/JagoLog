@@ -19,15 +19,19 @@ type TocItem = {
 
 interface ProjectDetails {
   purpose: string;
+  goals: string[];
   techs: string[];
   features: string[];
-  images?: string[];
+  roles: string[];
+  highlights: string[];
+  images: string[];
 }
 
 interface SideProject {
   title: string;
   period: string;
-  demoSite?: string;
   description: string;
+  type: string;
+  demoSite?: string;
   details: ProjectDetails;
 }

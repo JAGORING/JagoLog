@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import Modal from '../ui/modal';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import Link from 'next/link';
+import { ProjectDetailItem } from './ProjectDetailItem';
 
 interface SideProjectCardProps extends SideProject {}
 
@@ -19,13 +20,15 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
       >
         <Card className="h-full">
           <Card.Header title={project.title} period={project.period} />
+
           <div className="flex flex-wrap gap-2 mb-3">
             {project.details.techs.map((tech) => (
-              <div className="text-xs font-semibold bg-pointColor text-white px-2 py-1 rounded-md" key={tech}>
+              <div key={tech} className="text-xs font-semibold bg-pointColor px-2 py-1 rounded-md">
                 {tech}
               </div>
             ))}
           </div>
+
           <Card.Body
             description={project.description}
             extraInfo={<span className="text-xs text-gray-400">자세히 보기 &rarr;</span>}
@@ -37,11 +40,13 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
         <Modal.Header onClose={() => setModalOpen(false)}>
           <div>
             <h3 className="text-xl font-bold">{project.title}</h3>
-            <span className="text-sm text-subcolor">{project.period}</span>
+            <span className="text-sm text-subcolor">개발 기간: {project.period}</span>
+            <div className="text-xs text-accent-foreground mt-1">프로젝트 형태: {project.type}</div>
           </div>
         </Modal.Header>
+
         <Modal.Body>
-          {project.details.images && project.details.images.length > 0 && (
+          {project.details.images?.length > 0 && (
             <div className="flex overflow-x-auto gap-3 py-2">
               {project.details.images.map((img, idx) => (
                 <Image
@@ -55,6 +60,7 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
               ))}
             </div>
           )}
+
           {project.demoSite && (
             <div className="my-4">
               <Link href={project.demoSite} target="_blank">
@@ -65,25 +71,12 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
             </div>
           )}
 
-          <div className="space-y-4 mt-2">
-            <div>
-              <h4 className="text-xl font-semibold">목적</h4>
-              <p className="text-accent-foreground">{project.details.purpose}</p>
-            </div>
-            <div>
-              <h4 className="text-xl font-semibold">사용 기술</h4>
-              <p className="text-accent-foreground">{project.details.techs.join(', ')}</p>
-            </div>
-            <div>
-              <h4 className="text-xl font-semibold">주요 구현 기능</h4>
-              <ul>
-                {project.details.features.map((line, index) => (
-                  <li key={index} className="text-accent-foreground leading-relaxed text-base">
-                    {line.trim()}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="space-y-6 mt-4">
+            <ProjectDetailItem title="📌 프로젝트 개요" content={project.details.purpose} />
+            <ProjectDetailItem title="💡 주요 목표" list={project.details.goals} />
+            <ProjectDetailItem title="🔧 주요 기능" list={project.details.features} />
+            <ProjectDetailItem title="👩🏻‍💻 담당 역할" list={project.details.roles} />
+            <ProjectDetailItem title=" ✨ 개발자로서의 성장 포인트" list={project.details.highlights} />
           </div>
         </Modal.Body>
       </Modal>
