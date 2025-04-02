@@ -7,7 +7,7 @@ date: '2024-11-22 18:30:00'
 
 ## Pick
 
-- **Pick<code>{`<Type, Keys>`}</code>**
+- **Pick{`<Type, Keys>`}**
 Type에서 프로퍼티 Keys의 집합을 선택해 타입을 생성
 
 → [TypeScript - Pick](https://www.typescriptlang.org/docs/handbook/utility-types.html)
@@ -16,7 +16,7 @@ Type에서 프로퍼티 Keys의 집합을 선택해 타입을 생성
 
 ### Pick - Easy 4
 
-- 'T'에서 'K' 프로퍼티만 선택해 새로운 오브젝트 타입을 만드는 내장 제네릭 <code>{`'Pick<T, K>'`}</code>을 이를 사용하지 않고 구현하세요.
+- 'T'에서 'K' 프로퍼티만 선택해 새로운 오브젝트 타입을 만드는 내장 제네릭 {`'Pick<T, K>'`}을 이를 사용하지 않고 구현하세요.
 
 ```tsx
 // 내 풀이
@@ -75,7 +75,7 @@ Todo 는 세 가지 프로퍼티('title', 'description', 'completed')를 가진 
 ---
 
 
-- 테스트 1: <code>{`MyPick<Todo, 'title'>`}</code>
+- 테스트 1: {`MyPick<Todo, 'title'>`}
 
 ```tsx
 type Expected1 = { title: string; };
@@ -84,25 +84,25 @@ type Test1 = MyPick<Todo, 'title'>;
 ```
 
 - Todo에서 'title'만 선택한 타입을 반환
-- **결과**: <code>{`{ title: string; }`}</code>
+- **결과**: {`{ title: string; }`}
 
 ---
 
-- 테스트 2: <code>{`MyPick<Todo, 'title' | 'completed'>`}</code>
+- 테스트 2: {`MyPick<Todo, 'title' | 'completed'>`}
 
 ```tsx
 type Expected2 = { title: string; completed: boolean; };
 type Test2 = MyPick<Todo, 'title' | 'completed'>;
-// 결과: <code>{`{ title: string; completed: boolean; }`}</code>
+// 결과: {`{ title: string; completed: boolean; }`}
 
 ```
 
 - Todo에서 'title'과 'completed'만 선택한 타입을 반환
-- **결과**: <code>{`{ title: string; completed: boolean; }`}</code>
+- **결과**: {`{ title: string; completed: boolean; }`}
 
 ---
 
-- 테스트 3: <code>{`MyPick<Todo, 'title' | 'completed' | 'invalid'>`}</code>
+- 테스트 3: {`MyPick<Todo, 'title' | 'completed' | 'invalid'>`}
 
 ```tsx
 // @ts-expect-error

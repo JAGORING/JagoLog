@@ -1,0 +1,99 @@
+---
+title: 'Type Challenge - Readonly'
+description: 'Type 집합의 모든 프로퍼티읽기 전용(readonly)으로 설정한 타입을 생성'
+tags: ['TypeScript']
+date: '2024-11-23 18:30:00'
+---
+## Readonly
+
+Type 집합의 모든 프로퍼티 읽기 전용(readonly)으로 설정한 타입을 생성합니다. 즉 생성된 타입의 프로퍼티는 재할당될 수 없습니다.
+
+→ https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+---
+
+
+### Readonly- Easy 7
+
+- T의 모든 프로퍼티를 읽기 전용(재할당 불가)으로 바꾸는 내장 제네릭 Readonly{`<T>`}를 이를 사용하지 않고 구현하세요.
+
+```tsx
+// 내 풀이
+type MyReadonly<T> = { readonly [P in keyof T] : T[P]}
+
+/* _____________ 테스트 케이스 _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<MyReadonly<Todo1>, Readonly<Todo1>>>,
+]
+
+interface Todo1 {
+  title: string
+  description: string
+  completed: boolean
+  meta: {
+    author: string
+  }
+}
+```
+
+### 풀이 설명
+
+**MyReadonly 타입 정의 부분**
+
+주어진 타입 T의 모든 프로퍼티를 readonly로 변환하는 유틸리티 타입으로 만듦
+
+- **제네릭 T**: 변환 대상 타입
+- **readonly [P in keyof T]: T[P]**: T의 모든 키(keyof T)를 순회해서 해당 프로퍼티를 readonly로 지정해줌
+
+---
+
+### 테스트 케이스 설명
+
+### interface Todo1
+
+```tsx
+interface Todo1 {
+  title: string;
+  description: string;
+  completed: boolean;
+  meta: {
+    author: string;
+  };
+}
+```
+
+Todo1은 여러 프로퍼티(title, description, completed, meta)를 포함한 객체 타입
+
+---
+
+### 테스트: MyReadonly
+
+```tsx
+type Expected = Readonly<Todo1>;
+type Test = MyReadonly<Todo1>;
+```
+
+- {`MyReadonly<Todo1>의 결과는 TypeScript의 내장 타입 Readonly<T>와 동일`}
+- {`Readonly<Todo1>는 Todo1의 모든 프로퍼티를 readonly로 변환한 타입`}
+
+**예시 결과**:
+
+```tsx
+{
+  readonly title: string;
+  readonly description: string;
+  readonly completed: boolean;
+  readonly meta: {
+    author: string;
+  };
+}
+```
+
+---
+
+Readonly는 의도치 않은 데이터 변경을 방지하기 위해 모든 프로퍼티를 읽기 전용으로 변경해준다. 이 특징은 중요한 객체의 **불변성을 보장**할 때 유용하다! 
+프로젝트에서는 리액트 상태나 객체를 전달할 때 실수로 데이터를 변경하지 않도록 방지하고 싶을 때 사용할 수 있을 것 같다 😊
+
+TypeScript의 내장 Readonly 타입을 직접 구현해보면서 readonly 키워드의 활용법을 익힐 수 있었다. Readonly 문제가 TypeScript Challenge에 보통 난이도로 2개가 더 있던데 어떤 문제일지 궁금하다🤔
