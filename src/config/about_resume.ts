@@ -124,7 +124,7 @@ export const SIDE_PROJECT = [
         'IoT 기반 식물 재배기와 연동되는 식물 성장일지 기록용 웹 애플리케이션 개발. 기존 모바일 웹사이트에 성장일지 기능을 추가하고 이를 기반으로 하이브리드 앱(iOS, AOS) 런칭을 목표로 진행된 프로젝트.',
       goals: [
         '사용자가 자신의 식물 성장 과정을 사진과 함께 기록하고 다른 유저와 공유할 수 있도록 지원',
-        'IoT 식물 재배기와 연동하여 자동으로 성장일지를 생성하고 센서 데이터를 시각화',
+        'IoT 식물 재배기와 연동하여 성장일지를 생성하고 센서 데이터를 시각화',
         '기존 UI 디자인을 유지하며 신규 기능 퍼블리싱 및 API 연동',
       ],
       techs: ['React', 'TypeScript', 'MUI', 'Recharts'],
@@ -136,8 +136,7 @@ export const SIDE_PROJECT = [
         'Recharts를 활용한 온도/습도 데이터 시각화',
       ],
       highlights: [
-        '성장일지 메인 화면을 단독으로 구현하며 기획부터 API 연동까지 전체 흐름을 경험함',
-        'IoT 센서 데이터를 수집하여 Recharts로 온습도 차트를 시각화함',
+        'IoT 센서 데이터를 사용하여 Recharts로 온습도 차트를 시각화함',
         '성장일지 생성, 상세 보기, 기록 추가 등 다양한 API 연동 경험 보유',
         '하이브리드 앱 구조 및 API 명세를 기반으로 외주 팀원과의 협업 진행',
       ],
@@ -153,7 +152,7 @@ export const SIDE_PROJECT = [
   {
     title: 'Memong',
     period: '2023.10',
-    demoSite: 'https://memong.vercel.app/',
+    demoSite: 'https://memong.netlify.app/',
     description:
       '미몽컴퍼니의 브랜드 소개를 위한 웹사이트 개발 프로젝트로 기업 정보와 서비스 안내를 담은 반응형 웹페이지 구현',
     type: '외주 / 개인 프로젝트',
@@ -191,7 +190,7 @@ export const SIDE_PROJECT = [
         '디바이스 해상도에 대응한 반응형 레이아웃 적용',
       ],
       roles: [
-        'React를 활용한 정적 웹사이트 전체 페이지 구조 설계 및 구현',
+        'React를 활용하여 웹사이트 전체 페이지 구조 설계 및 구현',
         '게임 콘텐츠에 맞춘 구성 흐름 설계 및 컴포넌트화',
         'Styled-Components를 활용한 테마 적용 및 반응형 스타일링 처리',
       ],
@@ -213,7 +212,7 @@ export const SIDE_PROJECT = [
     description: '웹사이트 방문 시 모든 이미지를 지정된 대체 이미지로 바꾸는 크롬 확장 프로그램 개발',
     type: '사이드 프로젝트 / 개인',
     details: {
-      purpose: '웹 콘텐츠 필터링 기능 구현을 통해 브라우저 확장 프로그램 구조 및 API 사용 경험 습득',
+      purpose: '브라우저 확장 프로그램 구조 및 API 사용 경험 습득',
       techs: ['JavaScript', 'Chrome Extensions API'],
       features: [
         '웹사이트 내 모든 이미지를 사용자 지정 이미지로 일괄 변경',
@@ -224,9 +223,8 @@ export const SIDE_PROJECT = [
         '옵션 페이지 UI 및 스토리지 연동을 통한 사용자 설정 기능 개발',
       ],
       highlights: [
-        'Chrome Extensions의 content script, storage API 등 구조를 직접 이해하고 구현',
+        'Chrome Extensions의 content script, storage API 등 구조를 이해하고 직접 구현',
         '실시간 DOM 조작을 통해 이미지 리소스를 대체하는 기능을 순수 JS로 구현',
-        '사용자 설정을 저장하고 적용하는 옵션 페이지 연동 경험 확보',
       ],
     },
   },
@@ -240,7 +238,7 @@ export const SIDE_PROJECT = [
       purpose: 'Canvas와 JavaScript를 활용해 고전 게임을 직접 구현하며 게임 개발의 기본 구조와 로직을 경험',
       techs: ['JavaScript'],
       features: [
-        '총 4개의 클래식 게임(T-Rex Jump, Breakout, Snake, Pong) 구현',
+        '총 4개의 클래식 게임(T-Rex Jump, Breakout, Snake, Pong) 실행 가능',
         'Canvas API를 활용한 실시간 렌더링, 키보드 조작 및 충돌 감지 처리',
         '각 게임의 UI/UX를 단순하면서도 직관적으로 구성',
       ],
@@ -268,7 +266,7 @@ export const SIDE_PROJECT = [
   {
     title: '리더스 도준',
     period: '2021.03',
-    demoSite: 'https://leadersdojun.vercel.app/',
+    demoSite: 'https://leadersdojun.netlify.app/',
     description:
       '리더스 도준 한방 병원의 웹사이트를 외주 프로젝트로 개발. 병원 소개 및 진료 과목 안내를 위한 웹사이트 구현',
     type: '외주 / 개인 프로젝트',
@@ -276,11 +274,7 @@ export const SIDE_PROJECT = [
       purpose: '의료 기관의 온라인 홍보 및 진료 정보 제공을 위한 반응형 웹사이트 구축',
       techs: ['JavaScript', 'Bootstrap'],
       features: ['병원 소개, 의료진, 진료 과목 등의 정보 제공', '모바일 대응을 위한 반응형 UI 설계 및 구현'],
-      roles: [
-        '웹사이트 전체 구조 및 콘텐츠 설계',
-        '반응형 레이아웃 구성 및 스타일링 (Bootstrap 활용)',
-        '정적 페이지 구성 및 구현까지 전 개발 과정 담당',
-      ],
+      roles: ['웹사이트 전체 구조 및 콘텐츠 설계', '반응형 레이아웃 구성 및 스타일링 (Bootstrap 활용)'],
       highlights: [
         'Bootstrap을 활용해 빠르게 반응형 웹사이트 레이아웃을 구현',
         '요구사항 분석부터 디자인, 개발까지 전 과정 단독 수행',
