@@ -21,7 +21,7 @@ const CategoryFilter = ({ categoryList = [], currentCategory }: CategoryListProp
 
   return (
     <div className="mb-4 flex gap-2 overflow-x-auto">
-      {categoryList.map((category) => (
+      {['All', ...categoryList].map((category) => (
         <Button
           key={category}
           size="sm"

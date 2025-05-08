@@ -70,7 +70,7 @@ export const getPostDetail = async (category: string, slug: string) => {
 export const getCategoryList = () => {
   const categoryPaths: string[] = sync(`${POSTS_PATH}/*`);
   const categoryList = categoryPaths.map((cp) => cp.split(path.sep).slice(-1)?.[0]);
-  return ['All', ...categoryList];
+  return categoryList;
 };
 
 export const getHeadingForToc = async (content: string): Promise<TocItem[]> => {

@@ -1,4 +1,5 @@
 import PostList from '@/components/post-list/PostList';
+import { getCategoryList } from '@/libs/post';
 import { Metadata } from 'next';
 
 type Props = {
@@ -11,6 +12,12 @@ export async function generateMetadata({ params: { category } }: Props): Promise
   return {
     title,
   };
+}
+
+export function generateStaticParams() {
+  const categoryList = getCategoryList();
+  const paramList = categoryList.map((category) => ({ category }));
+  return paramList;
 }
 
 const CategoryPage = ({ params }: Props) => {

@@ -2,7 +2,7 @@ import PostContent from '@/components/mdx/PostContent';
 import { PostHeader } from '@/components/mdx/PostHeader';
 import TOCSide from '@/components/post-detail/TOCSide';
 import TOCTop from '@/components/post-detail/TOCTop';
-import { getPostDetail } from '@/libs/post';
+import { getAllPosts, getPostDetail } from '@/libs/post';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -19,6 +19,18 @@ export async function generateMetadata({ params: { category, slug } }: Props): P
     title,
     description: post.description,
   };
+}
+
+export function generateStaticParams() {
+  const posts = getAllPosts('All');
+
+  return posts.map((post) => {
+    const parts = post.url.split('/').filter(Boolean);
+    return {
+      category: parts[1],
+      slug: parts[2],
+    };
+  });
 }
 
 const PostDetail = async ({ params }: Props) => {
