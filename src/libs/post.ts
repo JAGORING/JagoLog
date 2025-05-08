@@ -17,22 +17,19 @@ const parsePost = (postPath: string): Post | undefined => {
 
     const parts = _path.split(/[/\\]/).filter(Boolean);
     if (parts.length < 2) {
-      console.error('Unexpected path format:', _path);
       return undefined;
     }
     const [category, slug] = parts;
-
-    console.log('Parsed values:', { category, slug });
 
     if (!category || !slug) {
       console.error('Missing category or slug:', { category, slug });
       return undefined;
     }
-    const thumbnailPath1 = path.join(process.cwd(), 'public', 'posts', category, slug, 'thumbnail.png');
+    const thumbnailPath1 = path.join(process.cwd(), 'public', 'images', 'posts', category, slug, 'thumbnail.png');
 
     const thumbnail = fs.existsSync(thumbnailPath1)
-      ? `/posts/${category}/${slug}/thumbnail.png`
-      : `/posts/${category}/thumbnail.png`;
+      ? `/images/posts/${category}/${slug}/thumbnail.png`
+      : `/images/posts/${category}/thumbnail.png`;
 
     return {
       ...grayMatter,
@@ -49,7 +46,9 @@ const parsePost = (postPath: string): Post | undefined => {
 
 export const getAllPosts = (category?: string) => {
   const categoryPath = !category || category !== 'All' ? category : '**';
+
   const postPaths: string[] = sync(`${POSTS_PATH}/${categoryPath}/*.mdx`);
+
   return postPaths.reduce<Post[]>((ac, postPath) => {
     const post = parsePost(postPath);
     if (!post) return ac;
