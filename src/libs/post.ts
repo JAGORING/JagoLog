@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import matter from 'gray-matter';
 import { sync } from 'glob';
 import path from 'path';
+import { Post, PostMatter, TocItem } from '@/types/post';
 
 const parsePost = (postPath: string): Post | undefined => {
   try {

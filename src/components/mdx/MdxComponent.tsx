@@ -1,7 +1,8 @@
 import { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import CustomCodeBlock from './CustomCodeBlock';
-import { Image } from './Image';
+import { ImageCom } from './Image';
+import { ComponentType } from 'react';
 
 export const mdxComponents: MDXComponents = {
   a: ({ children, ...props }) => {
@@ -14,7 +15,8 @@ export const mdxComponents: MDXComponents = {
   code: ({ ...props }) => {
     return <CustomCodeBlock {...props} />;
   },
-  img: Image as any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  img: ImageCom as ComponentType<any>,
   h1: (props) => <h1 className="text-2xl font-bold my-6" {...props} />,
   h2: (props) => <h2 className="text-xl font-semibold my-5" {...props} />,
   h3: (props) => <h3 className="text-lg font-semibold my-5" {...props} />,

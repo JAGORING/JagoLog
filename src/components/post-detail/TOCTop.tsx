@@ -1,3 +1,4 @@
+import { TocItem } from '@/types/post';
 import Link from 'next/link';
 
 interface Props {

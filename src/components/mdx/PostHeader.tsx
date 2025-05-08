@@ -1,3 +1,5 @@
+import { Post } from '@/types/post';
+
 interface Props {
   post: Post;
 }

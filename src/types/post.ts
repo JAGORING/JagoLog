@@ -1,9 +1,9 @@
-type Post = PostMatter & {
+export type Post = PostMatter & {
   url: string;
   content: string;
   toc?: TocItem[];
 };
-type PostMatter = {
+export type PostMatter = {
   title: string;
   description: string;
   thumbnail?: string;
@@ -11,7 +11,7 @@ type PostMatter = {
   date: string;
 };
 
-type TocItem = {
+export type TocItem = {
   id: string;
   text: string;
   depth: number;
@@ -19,15 +19,15 @@ type TocItem = {
 
 interface ProjectDetails {
   purpose: string;
-  goals: string[];
   techs: string[];
-  features: string[];
   roles: string[];
   highlights: string[];
-  images: string[];
+  features?: string[];
+  goals?: string[];
+  images?: string[];
 }
 
-interface SideProject {
+export interface SideProject {
   title: string;
   period: string;
   description: string;

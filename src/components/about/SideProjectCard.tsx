@@ -6,10 +6,9 @@ import Modal from '../ui/modal';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { ProjectDetailItem } from './ProjectDetailItem';
+import { SideProject } from '@/types/post';
 
-interface SideProjectCardProps extends SideProject {}
-
-const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
+const SideProjectCard = (project: SideProject) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
@@ -46,7 +45,7 @@ const SideProjectCard: React.FC<SideProjectCardProps> = (project) => {
         </Modal.Header>
 
         <Modal.Body>
-          {project.details.images?.length > 0 && (
+          {project.details.images && project.details.images.length > 0 && (
             <div className="flex overflow-x-auto gap-3 py-2">
               {project.details.images.map((img, idx) => (
                 <Image

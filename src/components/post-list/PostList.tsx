@@ -1,3 +1,4 @@
+import { Post } from '@/types/post';
 import CategoryFilter from './CategoryFilter';
 import PostCard from './PostCard';
 import { getAllPosts, getCategoryList } from '@/libs/post';
