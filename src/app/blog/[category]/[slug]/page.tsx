@@ -21,8 +21,8 @@ export async function generateMetadata({ params: { category, slug } }: Props): P
   };
 }
 
-export function generateStaticParams() {
-  const posts = getAllPosts('All');
+export async function generateStaticParams() {
+  const posts = await getAllPosts('All');
 
   return posts.map((post) => {
     const parts = post.url.split('/').filter(Boolean);
