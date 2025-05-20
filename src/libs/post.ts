@@ -1,4 +1,4 @@
-import { BASE_PATH, POSTS_PATH } from '@/constants/config';
+import { POSTS_PATH } from '@/constants/config';
 import fs from 'fs/promises';
 import { access } from 'fs/promises';
 import path from 'path';
@@ -13,11 +13,9 @@ const parsePost = async (postPath: string): Promise<Post | undefined> => {
     const { content, data } = matter(file);
     const grayMatter = data as PostMatter;
 
-    const _path = postPath.slice(postPath.indexOf(BASE_PATH)).replace(BASE_PATH, '').replace('.mdx', '');
-    const parts = _path.split(/[/\\]/).filter(Boolean);
-    if (parts.length < 2) return undefined;
-
-    const [category, slug] = parts;
+    const rel = path.relative(POSTS_PATH, postPath).replace(/\.mdx$/, '');
+    const [category, slug] = rel.split(path.sep);
+    if (!slug) return;
 
     const thumbnailRelPath = `/images/posts/${category}/${slug}/thumbnail.png`;
     const fallbackRelPath = `/images/posts/${category}/thumbnail.png`;
@@ -45,13 +43,12 @@ const sortPostListByDate = (postList: Post[]) =>
   postList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 export const getAllPosts = async (category?: string): Promise<Post[]> => {
-  const categoryPath = !category || category !== 'All' ? category : '**';
-  const pattern = `${POSTS_PATH}/${categoryPath}/*.mdx`;
+  const raw = category && category !== 'All' ? `${POSTS_PATH}/${category}/*.mdx` : `${POSTS_PATH}/**/*.mdx`;
 
+  const pattern = raw.replace(/\\/g, '/');
   const postPaths = await glob(pattern, {});
 
   const posts = await Promise.all(postPaths.map(parsePost));
-
   return sortPostListByDate(posts.filter((p): p is Post => !!p));
 };
 
