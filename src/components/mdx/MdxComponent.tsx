@@ -23,4 +23,9 @@ export const mdxComponents: MDXComponents = {
   p: (props) => <p className="text-md my-4" {...props} />,
   ul: (props) => <ul className="text-md list-disc pl-5 my-4" {...props} />,
   li: (props) => <li className="mb-2" {...props} />,
+  table: (props) => <table className="w-full border-collapse border text-sm my-6" {...props} />,
+  thead: (props) => <thead className="bg-foreground text-background text-left font-semibold" {...props} />,
+  tr: (props) => <tr className="border-b " {...props} />,
+  th: (props) => <th className="px-4 py-2 text-left" {...props} />,
+  td: (props) => <td className="px-4 py-2" {...props} />,
 };

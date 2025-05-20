@@ -1,5 +1,5 @@
-import PostList from '@/components/post-list/PostList';
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  return <PostList />;
+  redirect('/blog');
 }
