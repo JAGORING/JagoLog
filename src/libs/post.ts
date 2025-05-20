@@ -17,26 +17,32 @@ const parsePost = async (postPath: string): Promise<Post | undefined> => {
     const [category, slug] = rel.split(path.sep);
     if (!slug) return;
 
-    const thumbnailRelPath = `/images/posts/${category}/${slug}/thumbnail.png`;
-    const fallbackRelPath = `/images/posts/${category}/thumbnail.png`;
-    const thumbnailFullPath = path.join(process.cwd(), 'public', thumbnailRelPath);
-
-    const thumbnailExists = await access(thumbnailFullPath)
-      .then(() => true)
-      .catch(() => false);
-
+    const thumbnail = await getThumbnailRelPath(category, slug);
     return {
       ...grayMatter,
       url: `/blog/${category}/${slug}`,
       tags: grayMatter.tags.filter(Boolean),
       date: dayjs(grayMatter.date).format('YYYY-MM-DD'),
-      thumbnail: thumbnailExists ? thumbnailRelPath : fallbackRelPath,
+      thumbnail,
       content,
     };
   } catch (e) {
     console.error(`[parsePost error] ${postPath}:`, e);
     return undefined;
   }
+};
+
+const getThumbnailRelPath = async (category: string, slug: string): Promise<string> => {
+  const base = `/images/posts/${category}`;
+  const specific = `${base}/${slug}/thumbnail.png`;
+  const fallback = `${base}/thumbnail.png`;
+
+  const fullPath = path.join(process.cwd(), 'public', specific);
+  const exists = await access(fullPath)
+    .then(() => true)
+    .catch(() => false);
+
+  return exists ? specific : fallback;
 };
 
 const sortPostListByDate = (postList: Post[]) =>
