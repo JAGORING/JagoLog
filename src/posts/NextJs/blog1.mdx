@@ -1,0 +1,294 @@
+---
+title: 'Next.js로 기술 블로그 만들기 (1)'
+description: 'App Router, MDX, 다크모드, TOC 등 블로그의 기본 구조와 기능을 구현한 과정을 기록합니다.'
+date: '2025-05-20'
+tags: ['Next.js', '블로그 만들기', 'MDX', 'App Router', 'TOC', '다크모드']
+---
+
+개발 공부를 하다 보면 자연스럽게 나만의 블로그를 만들고 싶은 마음이 생기곤 합니다.
+평소에 Notion에 혼자 공부한 내용을 정리해왔지만 다시 보기 쉽고 다른 사람과도 공유할 수 있는 공간이 있었으면 좋겠다고 느꼈습니다.
+
+그런 이유로 이번 기회에 Next.js를 기반으로 기술 블로그를 직접 만들어보기로 했습니다.
+이 글에서는 블로그를 구성하면서 사용한 기술과 기능들, 그리고 구현 과정을 정리해보겠습니다✍️
+
+---
+
+# 제작 목적
+
+- 사용해보고 싶었던 기술 스택을 적용해볼 수 있는 개인 프로젝트가 필요했고
+- Notion에 혼자 정리하던 내용을 보다 구조화하고 공유 가능한 형태로 바꿔보며
+- 나만의 도메인을 연결하고 배포까지 경험하며 작은 프로젝트를 완성해보고 싶었습니다.
+
+
+# 사용한 스택
+
+| 항목       | 선택한 기술                     |
+|------------|----------------------------------|
+| 프레임워크 |  Next.js 14 (App Router 기반)       |
+| 언어       |  TypeScript                      |
+| 콘텐츠     |  MDX                              |
+| 스타일링   | Tailwind CSS                          |
+| 배포       |  Vercel                           |
+| 도메인     |  가비아에서 구매한 도메인 - jagoring.my |
+
+
+
+# 디렉토리 구조
+
+기본적인 폴더 구조는 다음과 같이 구성했습니다:
+
+```txt
+jago_log
+├─ public/
+│  ├─ images/           # 게시글 및 프로젝트 이미지
+│  └─ side-projects/    # 사이드 프로젝트 이미지
+├─ src/
+│  ├─ app/              # App Router 기반 라우팅 구성
+│  │  ├─ blog/          # 블로그 메인, 카테고리, 글 상세 라우팅
+│  │  ├─ about/         # About 페이지
+│  │  └─ layout.tsx     # 전역 레이아웃 설정
+│  ├─ components/       # 공통 UI, 블로그 관련 컴포넌트 모음
+│  │  ├─ mdx/           # MDX 렌더링용 컴포넌트
+│  │  ├─ post-detail/   # TOC (목차) 관련 컴포넌트
+│  │  ├─ post-list/     # 게시글 목록, 필터 등
+│  │  └─ ui/            # 버튼, 카드 등 공통 UI 요소
+│  ├─ config/           # 글로벌 스타일 및 설정 파일
+│  ├─ constants/        # 상수 및 애니메이션 설정
+│  ├─ layouts/          # Header, Footer 및 테마 관련 컴포넌트
+│  ├─ libs/             # 글 데이터 관련 유틸 함수
+│  ├─ posts/            # 카테고리별 MDX 게시글
+│  └─ types/            # 타입 정의
+
+```
+
+---
+
+# MDX 기반 콘텐츠 구성
+MDX를 활용하면 일반적인 마크다운 문법에 더해 React 컴포넌트까지 자유롭게 삽입할 수 있어 기술 블로그에 매우 적합합니다.
+저는 src/posts/ 폴더에 .mdx 파일을 작성하고 이를 Next.js에서 불러와 렌더링하는 구조로 구성했습니다.
+
+## 사용한 주요 라이브러리 및 플러그인
+### 기본 렌더링 및 파싱 관련
+| 라이브러리                             | 역할                                         |
+| --------------------------------- | ------------------------------------------ |
+| @mdx-js/loader, @mdx-js/react | MDX 파일을 Next.js에서 컴포넌트로 렌더링                |
+| @next/mdx                       | App Router와 MDX 연동 (Next.js 공식 지원 플러그인)    |
+| gray-matter                     | MDX 파일의 frontmatter(제목, 날짜, 태그 등 메타데이터) 추출 |
+| glob         | 'src/posts' 하위의 모든 '.mdx' 파일을 동적으로 가져오기    |
+
+### remark / rehype 플러그인 (마크다운 변환 확장)
+| 플러그인                 | 설명                                          |
+| -------------------- | ------------------------------------------- |
+| remark-gfm         | GitHub Flavored Markdown 지원 (표, 체크박스 등)     |
+| remark-toc         | Table of Contents 자동 생성                     |
+| remark-breaks      | 	줄바꿈을 그대로 인식해 마크다운에서 줄바꿈이 적용되도록 처리        |
+| rehype-slug        | 'h1', 'h2', 'h3' 등에 고유한 ID를 부여해 앵커 링크 생성 가능 |
+| rehype-pretty-code | 코드 블록에 문법 하이라이팅, 복사 버튼 등 깔끔한 렌더링 지원         |
+
+
+## MDX 로딩 및 렌더링 방식
+Next.js App Router에서 .mdx를 처리하기 위해 @next/mdx를 설정에 추가했고,
+gray-matter로 메타데이터를 파싱한 뒤 각 글의 경로와 내용을 불러오는 유틸을 작성했습니다.
+
+```ts
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import glob from 'fast-glob';
+
+// POSTS_PATH : path.join(process.cwd(), 'src/posts');
+
+const getAllPosts = async (category?: string): Promise<Post[]> => {
+    const raw = category && category !== 'All' ? `${POSTS_PATH}/${category}/*.mdx` : `${POSTS_PATH}/**/*.mdx`;
+
+    const pattern = raw.replace(/\\/g, '/');
+    const postPaths = await glob(pattern, {});
+
+    const posts = await Promise.all(postPaths.map(parsePost));
+  ...
+}
+
+const parsePost = async (postPath: string): Promise<Post | undefined> => {
+  try {
+    const file = await fs.readFile(postPath, { encoding: 'utf8' });
+    const { content, data } = matter(file);
+    const grayMatter = data as PostMatter;
+
+    const rel = path.relative(POSTS_PATH, postPath).replace(/\.mdx$/, '');
+    const [category, slug] = rel.split(path.sep);
+    if (!slug) return;
+
+    return {
+      ...grayMatter,
+      url: `/blog/${category}/${slug}`,
+      date: dayjs(grayMatter.date).format('YYYY-MM-DD'),
+      content,
+    };
+  } catch (e) {
+    console.error(`[parsePost error] ${postPath}:`, e);
+    return undefined;
+  }
+};
+```
+---
+
+# 코드 복사 버튼 기능
+코드 블록을 복사할 수 있도록 직접 Copy 버튼 기능도 구현했습니다.
+사용자가 코드 상단에 있는 버튼을 누르면 해당 코드가 클립보드에 복사되고 일정 시간(3초) 동안 "✅Copied!" 메시지가 표시됩니다.
+
+```tsx
+const CustomCodeBlock = ({ ...props }) => {
+  const preRef = useRef<HTMLPreElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const code = preRef.current?.textContent || '';
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <button onClick={handleCopy} className="absolute right-1 top-0">
+        {copied ? '✅Copied!' : '📋Copy'}
+      </button>
+      <pre ref={preRef} {...props}>
+        {props.children}
+      </pre>
+    </div>
+  );
+};
+```
+
+해당 컴포넌트는 mdxComponents.tsx에서 태그를 커스터마이징할 때 연결되어 렌더링됩니다.
+```tsx
+code: (props) => <CustomCodeBlock {...props} />,
+```
+
+---
+
+# Table of Contents (TOC) 기능
+기술 블로그에서 TOC(Table of Contents, 목차)는
+글의 구조를 한눈에 보여주고 사용자가 원하는 섹션으로 빠르게 이동할 수 있도록 도와주는 중요한 요소입니다.
+
+저는 이 기능을 다음과 같은 방식으로 구현했습니다:
+- remark-slug 플러그인을 활용해 마크다운 제목(h2, h3)에 고유한 ID를 자동으로 부여하고
+
+- MDX 콘텐츠 내부에서 정규표현식을 사용해 제목들을 직접 추출한 뒤 TOC 데이터를 가공하는 유틸 함수를 작성했습니다.
+
+- 생성된 TOC 데이터는 사이드바 또는 상단 메뉴에서 목차 형태로 그려지고 사용자가 글의 흐름을 빠르게 파악하고 원하는 섹션으로 쉽게 이동할 수 있도록 도와줍니다.
+
+```tsx
+const getHeadingForToc = async (content: string): Promise<TocItem[]> => {
+  const toc: TocItem[] = [];
+  const headingRegex = /^(#{1,6})\s+(.*)$/gm;
+  let match;
+  const idCount: Record<string, number> = {};
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const hashes = match[1];
+    const text = match[2].trim();
+    let id = text
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s-]/gu, '')
+      .trim()
+      .replace(/\s+/g, '-');
+
+    if (!id) id = 'heading';
+
+    if (idCount[id] !== undefined) {
+      idCount[id] += 1;
+      id = `${id}-${idCount[id]}`;
+    } else {
+      idCount[id] = 0;
+    }
+
+    toc.push({ id, text, depth: hashes.length });
+  }
+
+  return toc;
+};
+```
+
+TOC를 사용하여 글의 구조를 한눈에 보여줄 수 있어 사용자 경험을 충분히 향상시킬 수 있었습니다 😊
+
+---
+
+# 다크모드 적용
+다크모드는 next-themes 라이브러리를 활용해 간편하게 구현했습니다.
+사용자의 시스템 설정에 따라 자동으로 테마를 설정해주고 원하는 경우 수동으로 변경할 수 있도록 구성했습니다.
+
+## 적용 방식 요약
+1. ThemeProvider를 만들어 layout.tsx의 전역에 적용
+2. 테마 상태를 제어할 수 있는 버튼 구현
+3. attribute="class"를 통해 html 태그에 light, dark 클래스 자동 부여
+4. 해당 클래스를 기반으로 테마에 맞게 스타일 적용
+
+### ThemeProvider 설정
+
+```tsx
+// src/app/theme-provider.tsx
+
+'use client';
+
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import type { ThemeProviderProps } from 'next-themes/dist/types';
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return (
+    <NextThemesProvider attribute="class" defaultTheme="system" {...props}>
+      {children}
+    </NextThemesProvider>
+  );
+}
+
+// src/app/layout.tsx
+
+import { ThemeProvider } from './theme-provider';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ko">
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### 테마 토글 버튼
+
+```tsx
+'use client';
+
+import { useTheme } from 'next-themes';
+
+export default function ThemeToggleButton() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+
+  return <button onClick={toggleTheme}>
+        {theme === 'dark' ? '🌙' : '☀️'}
+    </button>
+}
+```
+mounted 처리(useEffect)는 서버 사이드 렌더링과의 싱크를 맞추기 위해 필요하며 실제 프로젝트에서는 깜빡임 방지를 위해 추가로 처리해주는 것이 좋습니다.
+
+next-themes를 사용하면 복잡한 상태 관리 없이도 간단하고 일관된 테마 전환 기능을 구현할 수 있습니다.
+기본 설정만으로도 시스템 다크모드 대응과 커스터마이징이 모두 가능해 매우 유용한 라이브러리였습니다 😎
