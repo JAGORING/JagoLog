@@ -49,7 +49,9 @@ export const getAllPosts = async (category?: string): Promise<Post[]> => {
   const pattern = `${POSTS_PATH}/${categoryPath}/*.mdx`;
 
   const postPaths = await glob(pattern, {});
+
   const posts = await Promise.all(postPaths.map(parsePost));
+
   return sortPostListByDate(posts.filter((p): p is Post => !!p));
 };
 
