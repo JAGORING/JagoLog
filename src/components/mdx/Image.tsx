@@ -7,10 +7,12 @@ interface ImageProps {
 export const ImageCom = ({ src, alt }: ImageProps) => {
   return (
     <>
-      <div className="relative mx-auto mt-6 mb-0 h-60 w-full max-w-md overflow-hidden rounded-md">
-        <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 400px" />
+      <div className="mx-auto mb-6 w-full max-w-3xl">
+        <div className="relative aspect-video w-full overflow-hidden rounded-md">
+          <Image src={src} alt={alt} fill className="object-contain" sizes="(max-width: 768px) 100vw, 500px" />
+        </div>
+        {alt && <span className="block text-center text-sm text-accent-foreground">{alt}</span>}
       </div>
-      {alt !== '' && <span className="mb-6 mt-3 block text-center text-sm text-accent-foreground">{alt}</span>}
     </>
   );
 };

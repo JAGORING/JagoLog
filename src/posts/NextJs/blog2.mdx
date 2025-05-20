@@ -1,0 +1,122 @@
+---
+title: 'Next.js로 기술 블로그 만들기 (2)'
+description: 'Vercel 배포, 썸네일 처리, 경로 문제 등 직접 겪은 시행착오와 개선 과정을 정리했습니다.'
+date: '2025-05-20'
+tags: ['Next.js', '블로그 만들기', '배포', '트러블슈팅', 'Vercel']
+---
+
+지난 글에서는 제가 만든 기술 블로그의 전반적인 구조와 기능에 대해 소개했습니다.  
+이번 글에서는 블로그를 실제로 구축하면서 겪었던 **작은 문제들**과 그것들을 어떻게 해결했는지를 정리해보려 합니다.  
+
+---
+
+# glob 경로 문제로 글이 보이지 않았던 이슈
+
+로컬(Windows) 환경에서는 모든 MDX 게시글이 잘 렌더링되었지만,
+Vercel에 배포한 후에는 글 목록이 아예 뜨지 않는 문제가 발생했습니다.
+
+## 원인
+- Windows에서는 \(백슬래시) 경로 구분자가 사용되지만 Vercel은 Linux 기반으로 /(슬래시) 경로만 인식함
+- glob로 파일 경로를 탐색할 때 백슬래시가 포함된 경로는 무시됨
+
+운영체제마다 경로 처리 방식이 다르기 때문에 발생하는 cross-platform 환경 차이로 로컬에서만 테스트할 경우 쉽게 놓칠 수 있는 부분이었던 것 같습니다 🤔
+
+## 해결 방법
+배포 환경에서 글이 보이지 않는 것이 이상해서 console.log를 활용해 glob 패턴과 실제 반환된 경로 목록을 하나씩 확인해보았습니다.
+
+그 과정에서 Windows 경로에 포함된 백슬래시가 glob에서 제대로 처리되지 않는다는 점을 발견했고
+이를 바탕으로 패턴 문자열의 경로 구분자를 명시적으로 바꿔주는 처리를 추가했습니다.
+
+```ts
+const raw ='${POSTS_PATH}/**/*.mdx';
+const pattern = raw.replace(/\\/g, '/');
+const postPaths = await glob(pattern);
+```
+
+이 처리를 통해 Vercel 환경에서도 정상적으로 경로가 인식되고 게시글이 불러와지도록 문제를 해결할 수 있었습니다.
+
+---
+
+# 유연한 썸네일 경로 처리
+게시글마다 개별 썸네일 이미지를 적용하도록 구성했지만 
+해당 썸네일이 존재하지 않거나 별도로 설정되지 않은 경우에는 카테고리별 공통 썸네일을 fallback으로 사용하도록 처리했습니다.
+
+```ts
+import path from 'path';
+import { access } from 'fs/promises';
+
+const getThumbnailRelPath = async (category: string, slug: string): Promise<string> => {
+  const base = `/images/posts/${category}`;
+  const specific = `${base}/${slug}/thumbnail.png`;
+  const fallback = `${base}/thumbnail.png`;
+
+  const fullPath = path.join(process.cwd(), 'public', specific);
+  const exists = await access(fullPath)
+    .then(() => true)
+    .catch(() => false);
+
+  return exists ? specific : fallback;
+};
+```
+이렇게 처리하여 모든 글에 개별 썸네일을 반드시 만들 필요가 없고
+기본 이미지를 카테고리 단위로 재활용할 수 있어 UX와 개발 편의성 모두를 챙길 수 있는 구조를 만들 수 있습니다😊
+
+---
+
+# Vercel 배포 + 커스텀 도메인 연결
+처음에는 GitHub Pages를 고려했지만 별도의 배포용 레포지토리를 새로 만들어야 하고 설정 과정도 다소 번거롭게 느껴졌습니다.
+
+그래서 보다 간편하게 CI/CD가 가능하고 커스텀 도메인 연결도 쉬운 Vercel을 통해 배포하는 방식을 선택하게 되었습니다.
+
+## 배포 흐름
+먼저 GitHub 저장소를 Vercel에 연동하여
+코드를 푸시할 때마다 자동으로 빌드 및 배포가 이루어지도록 설정했습니다.
+
+초기에는 Vercel에서 제공하는 기본 도메인(예: 프로젝트이름.vercel.app)으로 배포되며
+이후에는 가비아에서 구입한 도메인 jagoring.my를 Vercel 프로젝트에 연결해 커스텀 도메인으로 접근할 수 있도록 구성했습니다.
+
+## 도메인 연결 팁
+도메인은 가비아에서 직접 구매했고 이후 Vercel에 연결하는 과정은 비교적 간단하게 진행할 수 있었습니다.
+1. 먼저 가비아의 도메인 관리 탭에서 A 레코드 또는 CNAME을
+Vercel에서 안내해주는 값으로 설정해주었습니다.
+![가비아의 도메인 관리 탭](/images/posts/NextJs/Blog2/dns1.png)
+
+2. Vercel 프로젝트의 도메인 설정 패널의 Custom Domain 항목에 도메인을 추가하면 연결이 완료됩니다.
+![Vercel 프로젝트의 도메인 설정 패널](/images/posts/NextJs/Blog2/dns2.png)
+
+---
+
+# 경로 이슈 (게시글 새로고침 시 404)
+배포 후 blog/[category]/[slug] 페이지에서 새로고침을 하면 404가 뜨는 문제가 발생했습니다.
+
+## 원인
+Next.js의 App Router에서는 정적 페이지를 사전에 생성해두지 않으면
+동적 경로(/blog/[category]/[slug] 등)에서 새로고침 시 페이지를 SSR로 처리하지 못해 404 에러가 발생할 수 있습니다.
+
+이를 해결하기 위해서는 generateStaticParams 혹은 generateMetadata 함수를 통해
+Next.js가 빌드 시점에 필요한 경로를 미리 생성하도록 설정해야 합니다!
+
+## 해결
+MDX 파일에 대해 generateStaticParams를 활용해
+각 게시글의 category와 slug 정보를 기반으로 정적 경로를 사전에 정의해주었습니다.
+
+```tsx
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map(post => ({
+    category: post.category,
+    slug: post.slug,
+  }));
+}
+```
+이 설정 덕분에 Next.js가 빌드 시점에 각 게시글의 정적 페이지를 생성할 수 있게 되었고
+배포 후에도 동적 경로에서의 새로고침이 문제없이 동작하도록 해결할 수 있었습니다.
+
+---
+
+기능 구현보다도 작은 오류들을 해결해가는 과정에서 가장 많은 걸 배운 것 같습니다.
+특히 경로 문제, 썸네일 처리, 배포 환경의 차이 등은 직접 경험하지 않으면 알기 어려운 부분이었고
+그만큼 기록해둘 가치가 있다고 생각해 이렇게 정리해보았습니다.
+
+앞으로도 블로그 기능을 천천히 확장해보려고 합니다😊
+읽어주셔서 감사합니다!
