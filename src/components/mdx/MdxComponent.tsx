@@ -7,7 +7,11 @@ import { ComponentType } from 'react';
 export const mdxComponents: MDXComponents = {
   a: ({ children, ...props }) => {
     return (
-      <Link {...props} href={props.href || ''} className="underline underline-offset-4 text-pointColor">
+      <Link
+        {...props}
+        href={props.href || ''}
+        className="underline underline-offset-4 text-pointColor whitespace-normal break-words "
+      >
         {children}
       </Link>
     );
