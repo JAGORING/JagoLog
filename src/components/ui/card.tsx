@@ -12,6 +12,7 @@ interface CardHeaderProps {
 interface CardBodyProps {
   description: string | string[];
   extraInfo?: React.ReactNode;
+  subInfo?: React.ReactNode;
 }
 
 const Card: React.FC<CardProps> & {
@@ -32,9 +33,10 @@ const CardHeader: React.FC<CardHeaderProps> = ({ title, period }) => (
   </div>
 );
 
-const CardBody: React.FC<CardBodyProps> = ({ description, extraInfo }) => (
+const CardBody: React.FC<CardBodyProps> = ({ description, extraInfo, subInfo }) => (
   <div>
-    {extraInfo && <div className="mb-1 text-md text-subcolor">{extraInfo}</div>}
+    {extraInfo && <div className="mb-1 text-md">{extraInfo}</div>}
+    {subInfo && <div className="mb-1 text-sm text-subcolor">{subInfo}</div>}
 
     <div>
       {typeof description !== 'string' ? (

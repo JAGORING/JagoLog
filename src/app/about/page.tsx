@@ -1,7 +1,6 @@
 import SideProjectCard from '@/components/about/SideProjectCard';
 import { Card } from '@/components/ui/card';
 import { RESUME_DATA, SIDE_PROJECT } from '@/config/about_resume';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const About = () => {
@@ -10,7 +9,7 @@ const About = () => {
       <section className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
         <div className="flex-1">
           <h1 className="text-4xl font-bold">{RESUME_DATA.name}</h1>
-          <p className="mt-4">{RESUME_DATA.about}</p>
+          <p className="mt-4 max-w-2xl lg:whitespace-pre">{RESUME_DATA.about}</p>
 
           <div className="mt-4 space-x-4">
             {RESUME_DATA.contact.social.map((social) => (
@@ -26,28 +25,7 @@ const About = () => {
             ))}
           </div>
         </div>
-
-        <div className="flex-shrink-0">
-          <Image
-            src={RESUME_DATA.avatarUrl}
-            alt={RESUME_DATA.name}
-            width={192}
-            height={192}
-            className="w-48 h-48 rounded-lg object-cover"
-          />
-        </div>
       </section>
-
-      {/* <section>
-        <h2 className="text-3xl font-semibold mb-4">사용 기술</h2>
-        <div className="flex flex-wrap gap-2 ">
-          {RESUME_DATA.skills.map((skill) => (
-            <div className="text-white bg-pointColor px-2 rounded-md" key={skill}>
-              {skill}
-            </div>
-          ))}
-        </div>
-      </section> */}
 
       <section>
         <h2 className="text-3xl font-semibold mb-5">경력 사항</h2>
@@ -67,6 +45,7 @@ const About = () => {
                     </span>
                   </>
                 }
+                subInfo={work.desc}
                 description={work.points}
               />
             ))}

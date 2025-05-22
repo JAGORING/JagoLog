@@ -2,10 +2,10 @@ export const RESUME_DATA = {
   name: '이하린',
   location: '대한민국 서울특별시 (한국 표준시)',
   locationLink: 'https://www.google.com/maps/place/seoul',
-  about: `3년차 프론트엔드 개발자로서, 지난 결과에 머무르지 않고 앞으로의 기회를 향해 끊임없이 도전하며, 서비스 구조와
-            코드를 지속적으로 고민해 팀과 함께 성장하는 동료가 되겠습니다.`,
+  about: `안녕하세요. 코드 한 줄이 사용자 흐름을 바꿀 수 있다고 믿는 3년차 주니어 프론트엔드 개발자 이하린입니다.
+사소한 동작 하나도 설계의 결과라고 생각하며 구조적인 개선과 사용자 경험 사이의 균형을 고민합니다.`,
   summary: ``,
-  avatarUrl: '/images/body_bg.jpg',
+  avatarUrl: '/images/JAGORING.jpg',
   contact: {
     email: 'leeharin115@gmail.com',
     social: [
@@ -24,37 +24,44 @@ export const RESUME_DATA = {
   works: [
     {
       company: '삼성엔지니어링 공간설계시스템',
+      desc: '배관 설계 및 자재 발주 업무의 엑셀 기반 운영을 시스템화하여 데이터 정합성과 업무 효율을 개선하는 내부 플랫폼',
       start: '2023.03',
       end: '2025.02',
       points: [
-        '사용기술: React, TypeScript, ApexCharts, AG Grid',
-        '- 공통 컴포넌트화 및 UI 구조 개선을 통해 코드 재사용성 증가 및 유지보수성 향상',
-        '- ApexCharts를 활용해 라인/바 차트 등 다양한 차트 유형을 적용하여 데이터 시각화 기능 구현 및 대시보드 UX 개선',
-        '- 팀 내 react-query 도입을 주도하여 상태 관리 효율성 및 데이터 패칭 성능 최적화',
-        '- 무한 스크롤 및 API 호출 방식 최적화로 초기 로딩 속도를 절반 이상 단축',
+        '사용기술: React, TypeScript, react-query, MUI, ApexCharts, AG Grid',
+        '- Recoil 기반 상태 관리의 복잡성과 중복 호출 문제를 React Query로 구조 개선',
+        '- 조건문 누적으로 확장되던 UI 컴포넌트를 Compound Component 패턴으로 리팩토링',
+        '- 대시보드 필터 입력 시 debounce 적용으로 불필요한 API 호출 방지 및 UX 최적화',
+        '- 컨테이너 파일 내 비즈니스 로직을 커스텀 훅으로 분리해 코드 복잡도 절감',
+        '- PDF 다중 다운로드 누락 문제를 async/await 기반 순차 처리 방식으로 해결',
+        '- AG Grid에 React Query 연동하여 페이지 단위 데이터만 요청, 초기 로딩 50% 단축',
+        '- Infinite Row Model 적용으로 팝업 내 대량 데이터 스크롤 성능 개선',
       ],
     },
 
     {
       company: '하비비커뮤니케이션 땡큐캠핑',
+      desc: '캠핑장 예약과 상품 구매가 가능한 사용자 중심 플랫폼',
       start: '2022.12',
       end: '2023.03',
       points: [
-        '사용기술: React, TypeScript, Next.js, react-query, redux-toolkit',
-        '- react-query의 캐싱 및 중복 요청 방지 기능을 활용하여 검색 속도 단축',
-        '- redux-toolkit을 활용해 예약 상태 및 총액을 효율적으로 관리하고 세부 정보를 실시간 반영',
-        '- 카카오 맵 API를 연동하여 캠핑장 위치 및 지도 마커 기능 제공하여 사용자 경험 개선',
-        '- 구매한 상품과 예약 내역을 쉽게 확인할 수 있도록 UI 및 데이터 연동',
+        '사용기술: React, TypeScript, Next.js, React Query, Redux Toolkit, styled-components, Kakao Map API',
+        '- HTML 기반 사이트를 React로 전환하며 프로젝트 초기 구조 설계와 상태 관리 흐름 구성에 참여',
+        '- 캠핑장 검색부터 예약 내역 확인까지 전체 예약 흐름 UI 구현 및 API 연동',
+        '- Redux Toolkit으로 숙박 기간, 캠핑장 정보 등 예약 관련 상태를 구조적으로 관리',
+        '- React Query로 휴대폰 인증, 빈자리 알림 등 예약 프로세스 비동기 요청 처리 및 상태 실시간 반영',
+        '- Kakao Map API 연동으로 캠핑장 위치와 상세 정보 시각화하여 사용자 편의 향상',
       ],
     },
     {
       company: '삼성이앤에이 전기설계시스템',
+      desc: '전기설계팀의 도면 설계 및 케이블 발주 데이터를 시스템화하여 정합성 확보 및 업무 효율을 높이기 위한 내부 플랫폼',
       start: '2022.08',
       end: '2022.11',
       points: [
         '사용기술: React, TypeScript',
-        '- 프로젝트 구조 설계 및 컴포넌트 모듈화',
-        '- 신규 기능 개발 및 유지보수 프로세스 개선',
+        '- 반복되는 UI 요소를 컴포넌트화해 재사용성과 개발 효율성 향상',
+        '- 기존 기능 유지보수 및 신규 기능 개발에 참여해 실무 감각을 쌓음',
       ],
     },
   ],
@@ -70,12 +77,18 @@ export const RESUME_DATA = {
     {
       title: '노마드 스터디 10주 완성반',
       period: '2024.12',
-      points: 'React, framer-motion, TypeScript, TailwindCSS, NextJS, Prisma',
+      points: [
+        '- React, framer-motion, TypeScript, TailwindCSS, NextJS, Prisma 실무 기술 스택 기반 과제 수행',
+        '- 10주간 주차별 과제를 완성하고 팀원들과 상호 코드 리뷰를 진행하며 다양한 구현 방식에 대한 인사이트 습득',
+      ],
     },
     {
       title: 'Programmers JavaScript Study 15기',
       period: '2022.06',
-      points: '5주간 정해진 미션(필수 + 보너스)을 제출하고 코드리뷰를 주고 받는 스터디',
+      points: [
+        '- 5주간 JavaScript 과제를 해결하고 Git fork 및 브랜치 전략을 활용',
+        '- Pull Request 기반의 코드 리뷰를 통해 다양한 해결 방식과 코드 개선점 학습',
+      ],
     },
     {
       title: '정보처리기사',
@@ -124,8 +137,8 @@ export const SIDE_PROJECT = [
         'IoT 기반 식물 재배기와 연동되는 식물 성장일지 기록용 웹 애플리케이션 개발. 기존 모바일 웹사이트에 성장일지 기능을 추가하고 이를 기반으로 하이브리드 앱(iOS, AOS) 런칭을 목표로 진행된 프로젝트.',
       goals: [
         '사용자가 자신의 식물 성장 과정을 사진과 함께 기록하고 다른 유저와 공유할 수 있도록 지원',
-        'IoT 식물 재배기와 연동하여 성장일지를 생성하고 센서 데이터를 시각화',
-        '기존 UI 디자인을 유지하며 신규 기능 퍼블리싱 및 API 연동',
+        'IoT 식물 재배기에서 수집된 온도·습도 데이터를 기반으로 성장일지를 생성하고 센서 데이터를 시각화',
+        '기존 UI 디자인을 유지하며 신규 기능 구현 및 API 연동',
       ],
       techs: ['React', 'TypeScript', 'MUI', 'Recharts'],
       roles: [
