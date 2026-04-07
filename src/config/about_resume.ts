@@ -2,7 +2,7 @@ export const RESUME_DATA = {
   name: '이하린',
   location: '대한민국 서울특별시 (한국 표준시)',
   locationLink: 'https://www.google.com/maps/place/seoul',
-  about: `안녕하세요. 코드 한 줄이 사용자 흐름을 바꿀 수 있다고 믿는 3년차 주니어 프론트엔드 개발자 이하린입니다.
+  about: `안녕하세요. 코드 한 줄이 사용자 흐름을 바꿀 수 있다고 믿는 4년차 주니어 프론트엔드 개발자 이하린입니다.
 사소한 동작 하나도 설계의 결과라고 생각하며 구조적인 개선과 사용자 경험 사이의 균형을 고민합니다.`,
   summary: ``,
   avatarUrl: '/images/JAGORING.jpg',
@@ -33,7 +33,6 @@ export const RESUME_DATA = {
         '- 조건문 누적으로 확장되던 UI 컴포넌트를 Compound Component 패턴으로 리팩토링',
         '- 대시보드 필터 입력 시 debounce 적용으로 불필요한 API 호출 방지 및 UX 최적화',
         '- 컨테이너 파일 내 비즈니스 로직을 커스텀 훅으로 분리해 코드 복잡도 절감',
-        '- PDF 다중 다운로드 누락 문제를 async/await 기반 순차 처리 방식으로 해결',
         '- AG Grid에 React Query 연동하여 페이지 단위 데이터만 요청, 초기 로딩 50% 단축',
         '- Infinite Row Model 적용으로 팝업 내 대량 데이터 스크롤 성능 개선',
       ],
@@ -46,7 +45,7 @@ export const RESUME_DATA = {
       end: '2023.03',
       points: [
         '사용기술: React, TypeScript, Next.js, React Query, Redux Toolkit, styled-components, Kakao Map API',
-        '- HTML 기반 사이트를 React로 전환하며 프로젝트 초기 구조 설계와 상태 관리 흐름 구성에 참여',
+        '- HTML 기반 사이트를 Next로 전환하며 프로젝트 초기 구조 설계와 상태 관리 흐름 구성에 참여',
         '- 캠핑장 검색부터 예약 내역 확인까지 전체 예약 흐름 UI 구현 및 API 연동',
         '- Redux Toolkit으로 숙박 기간, 캠핑장 정보 등 예약 관련 상태를 구조적으로 관리',
         '- React Query로 휴대폰 인증, 빈자리 알림 등 예약 프로세스 비동기 요청 처리 및 상태 실시간 반영',
@@ -57,10 +56,10 @@ export const RESUME_DATA = {
       company: '삼성이앤에이 전기설계시스템',
       desc: '전기설계팀의 도면 설계 및 케이블 발주 데이터를 시스템화하여 정합성 확보 및 업무 효율을 높이기 위한 내부 플랫폼',
       start: '2022.08',
-      end: '2022.11',
+      end: '2022.11, 2025.02 ~ 현재',
       points: [
         '사용기술: React, TypeScript',
-        '- 반복되는 UI 요소를 컴포넌트화해 재사용성과 개발 효율성 향상',
+        '- 전역 에러 핸들링 및 모달 시스템 최적화',
         '- 기존 기능 유지보수 및 신규 기능 개발에 참여해 실무 감각을 쌓음',
       ],
     },
@@ -74,6 +73,11 @@ export const RESUME_DATA = {
   },
 
   Certifications: [
+    {
+      title: 'SQL 개발자',
+      period: '2025.12',
+      points: '발행 기관: 한국데이터산업진흥원',
+    },
     {
       title: '노마드 스터디 10주 완성반',
       period: '2024.12',

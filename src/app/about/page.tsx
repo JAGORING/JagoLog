@@ -32,7 +32,7 @@ const About = () => {
         <div className="grid gap-6">
           <Card>
             <Link href={'https://bizwizsystem.co.kr/'} target="_blank">
-              <Card.Header title="비즈위즈시스템" period="2022.08 ~ 2025.02" />
+              <Card.Header title="비즈위즈시스템" period="2022.08 ~ 2025.02, 2025.02 ~ 현재" />
             </Link>
             {RESUME_DATA.works.map((work) => (
               <Card.Body
