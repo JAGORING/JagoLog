@@ -128,6 +128,13 @@ export const SIDE_PROJECT = [
         '다크 모드 및 반응형 지원 등 사용자 편의성을 고려한 블로그 기능 구현',
         '지속적으로 운영 및 개선 중인 개인 기술 블로그 프로젝트',
       ],
+      images: [
+        '/side-projects/blog/list1.png',
+        '/side-projects/blog/list2.png',
+        '/side-projects/blog/detail1.png',
+        '/side-projects/blog/about1.png',
+        '/side-projects/blog/about2.png',
+      ],
     },
   },
   {
